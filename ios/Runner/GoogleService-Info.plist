@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>274659330068-ugdu6kneielo1tquei8nfva9ojdov31a.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.274659330068-ugdu6kneielo1tquei8nfva9ojdov31a</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>274659330068-ppj4eg6igvqd6lpe2m0uifn087sbt9bd.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBticrdZOJ7TL2zS1hm4JDkl7umP2_JZUU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>274659330068</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.metodistaapp.comp</string>
+	<key>PROJECT_ID</key>
+	<string>metodista-842fa</string>
+	<key>STORAGE_BUCKET</key>
+	<string>metodista-842fa.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:274659330068:ios:0e2b06db7d6a0415157f01</string>
+</dict>
+</plist>
