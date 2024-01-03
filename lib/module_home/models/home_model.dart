@@ -2,7 +2,7 @@ class HomeModel {
   HomeModel({
     required this.avisos,
     required this.campanhas,
-    this.fotosCultos,
+    required this.fotosCultos,
     required this.aniversariantes,
   });
 
@@ -28,5 +28,13 @@ class HomeModel {
     _data['fotosCultos'] = fotosCultos;
     _data['aniversariantes'] = aniversariantes;
     return _data;
+  }
+
+  factory HomeModel.fromMap(Map<String, dynamic> map) {
+    return HomeModel(
+        avisos: map['avisos'],
+        campanhas: map['campanhas'],
+        aniversariantes: map['aniversariantes'],
+        fotosCultos: map['fotosCultos']);
   }
 }

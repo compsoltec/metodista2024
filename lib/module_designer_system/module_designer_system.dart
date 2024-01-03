@@ -1,2 +1,2 @@
-export 'widget/widget.dart';
+export 'components/widget.dart';
 export 'model/model.dart';

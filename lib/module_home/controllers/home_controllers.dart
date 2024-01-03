@@ -10,10 +10,10 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import '../../../module_config/module_config.dart';
-import '../model/home_model.dart';
+import '../../module_services/module_services.dart';
+import '../models/home_model.dart';
 
-
-class HomeControllerAdmin extends GetxController {
+class HomeController extends GetxController {
   FirebaseStorage storage = FirebaseStorage.instance;
   TextEditingController controllerAniversariantes = TextEditingController();
   List<File>? imageFileList = [];
@@ -58,14 +58,21 @@ class HomeControllerAdmin extends GetxController {
   }
 
   fetchData() async {
+    isLoading(true);
+    final sharedPreferencesService = SharedPreferencesService();
+
     try {
       final Response result = await dio.get(
         ConstantsEndPoint.URL_BASE + ConstantsEndPoint.URL_HOME,
       );
       if (result.statusCode == 200) {
+            isLoading(false);
+
         ///data successfully
         final responseData = (result.data['data'] ?? []) as List;
         homeModel = HomeModel.fromJson(responseData[0]);
+
+        await sharedPreferencesService.saveJson(homeModel!);
       } else {
         print('error fetching data');
       }

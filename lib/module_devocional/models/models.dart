@@ -1,0 +1,1 @@
+export 'devocional_model.dart';
