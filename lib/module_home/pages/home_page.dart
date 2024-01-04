@@ -62,7 +62,7 @@ class _MainPageState extends State<MainPage>
           Tab(text: 'Devocional'),
           Tab(text: 'Testemunhos'),
           Tab(text: 'Inscrições'),
-          Tab(text: 'Bíblia'),
+          Tab(text: 'Utilização do Templo'),
         ],
         labelStyle: const TextStyle(fontSize: 16.0),
         unselectedLabelStyle: const TextStyle(

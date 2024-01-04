@@ -8,5 +8,5 @@ class ConstantsEndPoint {
   static String URL_DEVOCIONAL = "/devocionais";
   static String URL_TESTEMUNHOS = "/testemunho";
   static String URL_INSCRICOES = "/inscricoes";
-
+  static String URL_TEMPLO = "/templo";
 }

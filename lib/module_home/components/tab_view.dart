@@ -5,8 +5,10 @@ import 'package:notification2/module_devocional/module_devocional.dart';
 import 'package:notification2/module_devocional/pages/devocional_executar.dart';
 import 'package:notification2/module_inscricoes/controllers/inscricoes_controllers.dart';
 import 'package:notification2/module_inscricoes/pages/seinscrever_page.dart';
+import 'package:notification2/module_templo.dart/controllers/controllers.dart';
 import 'package:notification2/module_testemunhos/controllers/testemunhos_controllers.dart';
 import 'package:notification2/module_testemunhos/pages/testemunhos_detalhes_page.dart';
+import '../../module_templo.dart/components/templo_card.dart';
 import '../models/category.dart';
 import 'category_card.dart';
 
@@ -15,6 +17,7 @@ class TabView extends GetView<DevocionalController> {
   final devocionalController = Get.put(DevocionalController());
   final testemunhosController = Get.put(TestemunhosController());
   final inscricoesController = Get.put(InscricoesController());
+  final agendaTemploController = Get.put(AgendaTemploController());
 
   TabView({
     required this.tabController,
@@ -191,30 +194,43 @@ class TabView extends GetView<DevocionalController> {
                           ),
                         ),
                 ),
-                Container(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Flexible(
-                        child: Container(
-                            margin: EdgeInsets.all(8.0),
-                            height: MediaQuery.of(context).size.height / 11,
-                            width: MediaQuery.of(context).size.width,
-                            child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: 5,
-                                itemBuilder: (_, index) => CategoryCard(
-                                      titulo: '',
-                                      data: '',
-                                      image: '',
-                                      isNetwork: false,
-                                    ))),
-                      ),
-                      // Flexible(child: RecommendedList()),
-                    ],
-                  ),
-                ),
-                
+                Obx(
+                  () => agendaTemploController.loading.value == true
+                      ? CircularProgressIndicator.adaptive()
+                      : Container(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Flexible(
+                                child: Container(
+                                  margin: EdgeInsets.all(8.0),
+                                  height:
+                                      MediaQuery.of(context).size.height / 3,
+                                  child: ListView.builder(
+                                      padding: EdgeInsets.zero,
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: agendaTemploController
+                                          .agendatemploList.length,
+                                      itemBuilder: (_, index) =>
+                                          GestureDetector(
+                                            onTap: () {},
+                                            child: AgentaTemploCard(
+                                              titulo: agendaTemploController
+                                                  .agendatemploList[index].data,
+                                              data: '',
+                                              image: 'assets/calendar.png',
+                                              horario: agendaTemploController
+                                                  .agendatemploList[index]
+                                                  .horario,
+                                            ),
+                                          )),
+                                ),
+                              ),
+                              // Flexible(child: RecommendedList()),
+                            ],
+                          ),
+                        ),
+                )
               ]));
   }
 }
