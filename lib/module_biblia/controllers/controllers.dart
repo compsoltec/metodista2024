@@ -1,0 +1,1 @@
+export 'biblia_controllers.dart';

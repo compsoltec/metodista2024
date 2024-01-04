@@ -32,9 +32,12 @@ class _HomeScreenState extends State<HomeScreen> {
       if (kDebugMode) {
         print('device token');
         print(value);
+
       }
     });
   }
+
+  _saveToken(){}
 
   @override
   Widget build(BuildContext context) {

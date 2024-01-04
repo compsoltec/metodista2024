@@ -18,16 +18,13 @@ String selectedTimeline = 'Weekly featured';
 
 class _MainPageState extends State<MainPage>
     with TickerProviderStateMixin<MainPage> {
-  final SharedPreferencesService sharedPreferencesService =
-      SharedPreferencesService();
-
   late TabController tabController;
   late TabController bottomTabController;
 
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 5, vsync: this);
+    tabController = TabController(length: 4, vsync: this);
     bottomTabController = TabController(length: 4, vsync: this);
   }
 
@@ -61,12 +58,11 @@ class _MainPageState extends State<MainPage>
     Widget tabBar = Padding(
       padding: EdgeInsets.only(top: 20),
       child: TabBar(
-        tabs: [
+        tabs: const [
           Tab(text: 'Devocional'),
-          Tab(text: 'Sports'),
-          Tab(text: 'Headsets'),
-          Tab(text: 'Wireless'),
-          Tab(text: 'Bluetooth'),
+          Tab(text: 'Testemunhos'),
+          Tab(text: 'Inscrições'),
+          Tab(text: 'Bíblia'),
         ],
         labelStyle: const TextStyle(fontSize: 16.0),
         unselectedLabelStyle: const TextStyle(
@@ -94,7 +90,7 @@ class _MainPageState extends State<MainPage>
         child: SizedBox(
             child: Obx(() => homeController.isLoading.value
                 ? Center(
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator.adaptive(),
                   )
                 : TabBarView(
                     controller: bottomTabController,

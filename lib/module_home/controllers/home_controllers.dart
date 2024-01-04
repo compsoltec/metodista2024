@@ -59,8 +59,6 @@ class HomeController extends GetxController {
 
   fetchData() async {
     isLoading(true);
-    final sharedPreferencesService = SharedPreferencesService();
-
     try {
       final Response result = await dio.get(
         ConstantsEndPoint.URL_BASE + ConstantsEndPoint.URL_HOME,
@@ -71,8 +69,7 @@ class HomeController extends GetxController {
         ///data successfully
         final responseData = (result.data['data'] ?? []) as List;
         homeModel = HomeModel.fromJson(responseData[0]);
-
-        await sharedPreferencesService.saveJson(homeModel!);
+        
       } else {
         print('error fetching data');
       }
