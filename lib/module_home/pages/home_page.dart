@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:notification2/module_home/pages/categoty_list.dart';
 import 'package:notification2/module_services/module_services.dart';
+import 'package:notification2/module_youtube/youtube/youtubeInterfaces.dart';
 import '../module_home.dart';
 import 'package:notification2/module_devocional/module_devocional.dart';
 
@@ -144,7 +145,7 @@ class _MainPageState extends State<MainPage>
                               ),
                             ),
                           ),
-                          CategoryListPage(),
+                          Cultos_Youtube(),
                           Container(),
                           Container(),
                         ]))),

@@ -24,6 +24,7 @@ class AgentaTemploCard extends StatelessWidget {
             child: Column(
               children: [
                 Flexible(
+                  flex: 2,
                   child: SizedBox(
                     height: MediaQuery.of(context).size.height * 0.1,
                     child: Row(
@@ -45,8 +46,8 @@ class AgentaTemploCard extends StatelessWidget {
                           decoration: BoxDecoration(
                               gradient: RadialGradient(
                                   colors: [
-                                Color(0xffFCE183),
-                                Color(0xffF68D7F),
+                                Color(0xff596678),
+                                Color(0xff323a45),
                               ],
                                   center: Alignment(0, 0),
                                   radius: 0.8,
@@ -54,28 +55,11 @@ class AgentaTemploCard extends StatelessWidget {
                                   focalRadius: 0.1)),
                           padding: EdgeInsets.all(8.0),
                           child: Center(
-                            child: Image.asset(image),
+                            child: Image.asset(image, color: Colors.white),
                           ),
                         ),
                       ],
                     ),
-                  ),
-                ),
-                Flexible(
-                  child: Container(
-                    decoration: BoxDecoration(
-                        gradient: RadialGradient(
-                            colors: [
-                          Color(0xffFCE183),
-                          Color(0xffF68D7F),
-                          Color(0xffFCE183),
-                        ],
-                            center: Alignment(0, 0),
-                            radius: 0.8,
-                            focal: Alignment(0, 0),
-                            focalRadius: 0.1)),
-                    height: 1,
-                    width: MediaQuery.of(context).size.width * 0.6,
                   ),
                 ),
                 Flexible(

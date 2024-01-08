@@ -6,15 +6,19 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:notification2/module_testemunhos/controllers/controllers.dart';
 import 'package:notification2/pages/home_page.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_options.dart';
+import 'module_devocional/module_devocional.dart';
 import 'module_home/module_home.dart';
 import 'module_home/pages/home_page.dart';
+import 'module_inscricoes/controllers/controllers.dart';
 import 'module_services/module_services.dart';
 import 'module_services/service_locator.dart';
+import 'module_templo.dart/controllers/controllers.dart';
 import 'services/firebase_messaging_service.dart';
 import 'services/notification_services.dart';
 
@@ -69,8 +73,18 @@ class _MyAppState extends State<MyApp> {
   }
 
   _saveToken(String token) async {
+    final devocionalController = Get.put(DevocionalController());
+    final testemunhosController = Get.put(TestemunhosController());
+    final inscricoesController = Get.put(InscricoesController());
+    final agendaTemploController = Get.put(AgendaTemploController());
     final SharedPreferenceModule pref = getIt.get();
     pref.saveUserData(token);
+    setState(() {
+      devocionalController.getDevocional();
+      testemunhosController.getTestemunhos();
+      inscricoesController.getInscricoes();
+      agendaTemploController.getAgendaTemplo();
+    });
   }
 
   // This widget is the root of your application.

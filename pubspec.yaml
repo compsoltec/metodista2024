@@ -59,6 +59,8 @@ dependencies:
   flutter_share: ^2.0.0
   simple_animations: ^5.0.2
   get_it: ^7.6.4
+  youtube_player_flutter: ^8.1.2
+  cached_network_image: ^3.3.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

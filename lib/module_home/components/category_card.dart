@@ -44,8 +44,8 @@ class CategoryCard extends StatelessWidget {
                               image: NetworkImage(image), fit: BoxFit.cover),
                           gradient: RadialGradient(
                               colors: [
-                                Color(0xffFCE183),
-                                Color(0xffF68D7F),
+                                Color(0xff596678),
+                                Color(0xff323a45),
                               ],
                               center: Alignment(0, 0),
                               radius: 0.8,
@@ -59,8 +59,8 @@ class CategoryCard extends StatelessWidget {
                       decoration: BoxDecoration(
                           gradient: RadialGradient(
                               colors: [
-                            Color(0xffFCE183),
-                            Color(0xffF68D7F),
+                            Color(0xff596678),
+                            Color(0xff323a45),
                           ],
                               center: Alignment(0, 0),
                               radius: 0.8,
