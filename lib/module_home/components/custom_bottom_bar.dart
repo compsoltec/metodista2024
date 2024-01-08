@@ -10,26 +10,37 @@ class CustomBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
+      color: Colors.white.withOpacity(.3),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           IconButton(
-            icon: SvgPicture.asset(
-              'assets/icons/home_icon.svg',
-              fit: BoxFit.fitWidth,
+            icon: Image.asset(
+              'assets/home.png',
+              width: 25,
+              height: 25,
             ),
             onPressed: () {
               controller.animateTo(0);
             },
           ),
           IconButton(
-            icon: Image.asset('assets/icons/category_icon.png'),
+            icon: Image.asset(
+              'assets/musica.png',
+              width: 25,
+              height: 25,
+            ),
+            color: Colors.grey.shade600,
             onPressed: () {
               controller.animateTo(1);
             },
           ),
           IconButton(
-            icon: SvgPicture.asset('assets/icons/cart_icon.svg'),
+            icon: Image.asset(
+              'assets/social.png',
+              width: 25,
+              height: 25,
+            ),
             onPressed: () {
               controller.animateTo(2);
             },

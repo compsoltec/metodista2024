@@ -10,13 +10,13 @@ class ProductList extends StatelessWidget {
   double cardWidth;
   final SwiperController swiperController = SwiperController();
 
-  ProductList({required this.products,
-  required this.cardHeight,
-  required this.cardWidth});
+  ProductList(
+      {required this.products,
+      required this.cardHeight,
+      required this.cardWidth});
 
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: SizedBox(
@@ -38,14 +38,14 @@ class ProductList extends StatelessWidget {
                 print(
                     "The itemCount is too big, we suggest use FractionPaginationBuilder instead of DotSwiperPaginationBuilder in this sitituation");
               }
-              Color activeColor = mediumYellow;
-              Color color = Colors.grey.withOpacity(.3);
+              Color activeColor = Colors.grey.shade600;
+              Color color = Colors.white.withOpacity(.3);
               double size = 10.0;
               double space = 5.0;
 
               if (config.indicatorLayout != PageIndicatorLayout.NONE &&
                   config.layout == SwiperLayout.DEFAULT) {
-                return new PageIndicator(
+                return PageIndicator(
                   count: config.itemCount,
                   controller: config.pageController!,
                   layout: config.indicatorLayout,

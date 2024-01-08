@@ -35,7 +35,7 @@ class _MainPageState extends State<MainPage>
         child: const Center(
           child: Text(
             'Metodista Jardim Belvedere',
-            style: TextStyle(color: Colors.black, fontSize: 15),
+            style: TextStyle(color: Colors.white, fontSize: 15),
           ),
         ));
 
@@ -64,14 +64,14 @@ class _MainPageState extends State<MainPage>
           Tab(text: 'Inscrições'),
           Tab(text: 'Utilização do Templo'),
         ],
-        labelStyle: const TextStyle(fontSize: 16.0),
-        unselectedLabelStyle: const TextStyle(
-          fontSize: 14.0,
-        ),
-        labelColor: Colors.black,
+        labelStyle:
+            const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+        unselectedLabelStyle:
+            const TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
+        labelColor: Colors.grey.shade600,
         unselectedLabelColor: Colors.white,
         isScrollable: true,
-        indicatorColor: Colors.black,
+        indicatorColor: Colors.grey.shade600,
         controller: tabController,
       ),
     );
@@ -81,69 +81,74 @@ class _MainPageState extends State<MainPage>
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage(
-                  'assets/novotemplo.jpeg',
-                ),
-                fit: BoxFit.cover,
-                opacity: 0.3)),
+          image: AssetImage(
+            'assets/novotemplo.jpeg',
+          ),
+          fit: BoxFit.cover,
+        )),
         //painter: MainBackground(),
-        child: SizedBox(
-            child: Obx(() => homeController.isLoading.value
-                ? Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  )
-                : TabBarView(
-                    controller: bottomTabController,
-                    physics: NeverScrollableScrollPhysics(),
-                    children: <Widget>[
-                        SafeArea(
-                          child: NestedScrollView(
-                            headerSliverBuilder: (BuildContext context,
-                                bool innerBoxIsScrolled) {
-                              // These are the slivers that show up in the "outer" scroll view.
-                              return <Widget>[
-                                SliverToBoxAdapter(
-                                  child: appBar,
-                                ),
-                                SliverToBoxAdapter(
-                                  child: topHeader,
-                                ),
-                                SliverToBoxAdapter(
-                                  child: ProductList(
-                                    products:
-                                        homeController.homeModel!.fotosCultos!,
-                                    cardHeight:
-                                        MediaQuery.of(context).size.height /
-                                            3.7,
-                                    cardWidth:
-                                        MediaQuery.of(context).size.width / 1.8,
+        child: Container(
+          color: Colors.black.withOpacity(0.4),
+          child: SizedBox(
+              child: Obx(() => homeController.isLoading.value
+                  ? Center(
+                      child: CircularProgressIndicator.adaptive(),
+                    )
+                  : TabBarView(
+                      controller: bottomTabController,
+                      physics: NeverScrollableScrollPhysics(),
+                      children: <Widget>[
+                          SafeArea(
+                            child: NestedScrollView(
+                              headerSliverBuilder: (BuildContext context,
+                                  bool innerBoxIsScrolled) {
+                                // These are the slivers that show up in the "outer" scroll view.
+                                return <Widget>[
+                                  SliverToBoxAdapter(
+                                    child: appBar,
                                   ),
-                                ),
-                                SliverToBoxAdapter(
-                                  child: ProductList(
-                                    products:
-                                        homeController.homeModel!.campanhas!,
-                                    cardHeight:
-                                        MediaQuery.of(context).size.height /
-                                            3.7,
-                                    cardWidth:
-                                        MediaQuery.of(context).size.width / 1.8,
+                                  SliverToBoxAdapter(
+                                    child: topHeader,
                                   ),
-                                ),
-                                SliverToBoxAdapter(
-                                  child: tabBar,
-                                )
-                              ];
-                            },
-                            body: TabView(
-                              tabController: tabController,
+                                  SliverToBoxAdapter(
+                                    child: ProductList(
+                                      products: homeController
+                                          .homeModel!.fotosCultos!,
+                                      cardHeight:
+                                          MediaQuery.of(context).size.height /
+                                              3.7,
+                                      cardWidth:
+                                          MediaQuery.of(context).size.width /
+                                              1.8,
+                                    ),
+                                  ),
+                                  SliverToBoxAdapter(
+                                    child: ProductList(
+                                      products:
+                                          homeController.homeModel!.campanhas!,
+                                      cardHeight:
+                                          MediaQuery.of(context).size.height /
+                                              3.7,
+                                      cardWidth:
+                                          MediaQuery.of(context).size.width /
+                                              1.8,
+                                    ),
+                                  ),
+                                  SliverToBoxAdapter(
+                                    child: tabBar,
+                                  )
+                                ];
+                              },
+                              body: TabView(
+                                tabController: tabController,
+                              ),
                             ),
                           ),
-                        ),
-                        CategoryListPage(),
-                        Container(),
-                        Container(),
-                      ]))),
+                          CategoryListPage(),
+                          Container(),
+                          Container(),
+                        ]))),
+        ),
       ),
     );
   }
