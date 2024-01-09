@@ -15,6 +15,7 @@ import 'firebase_options.dart';
 import 'module_devocional/module_devocional.dart';
 import 'module_home/module_home.dart';
 import 'module_home/pages/home_page.dart';
+import 'module_home/pages/new_home_page.dart';
 import 'module_inscricoes/controllers/controllers.dart';
 import 'module_services/module_services.dart';
 import 'module_services/service_locator.dart';
@@ -95,7 +96,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MainPage(),
+      home: NewHome(),
     );
   }
 }

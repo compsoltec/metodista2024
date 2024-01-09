@@ -1,5 +1,8 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:notification2/module_home/models/home_model.dart';
+import 'package:notification2/module_home/pages/home_page_details.dart';
 
 import '../../app_properties.dart';
 import '../models/product.dart';
@@ -7,11 +10,20 @@ import '../models/product.dart';
 class ProductList extends StatelessWidget {
   List<dynamic> products;
   double cardHeight;
+  bool loop;
   double cardWidth;
+  String pastoral;
+  bool autoPlay;
+  double viewportFraction;
+
   final SwiperController swiperController = SwiperController();
 
   ProductList(
       {required this.products,
+      required this.loop,
+      required this.viewportFraction,
+      required this.pastoral,
+      required this.autoPlay,
       required this.cardHeight,
       required this.cardWidth});
 
@@ -21,16 +33,24 @@ class ProductList extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 20),
       child: SizedBox(
         height: cardHeight,
+        width: cardWidth,
         child: Swiper(
+          autoplayDelay: 10,
+          autoplay: autoPlay,
           itemCount: products.length,
           itemBuilder: (_, index) {
             return ProductCard(
-                height: cardHeight, width: cardWidth, product: products[index]);
+              pastoral: pastoral,
+              image: products[index],
+              height: cardHeight,
+              width: cardWidth,
+              product: products[index],
+            );
           },
           scale: 0.8,
           controller: swiperController,
-          viewportFraction: 0.6,
-          loop: false,
+          viewportFraction: viewportFraction,
+          loop: loop,
           fade: 0.5,
           pagination: SwiperCustomPagination(
             builder: (context, config) {
@@ -101,17 +121,26 @@ class ProductCard extends StatelessWidget {
   final String product;
   final double height;
   final double width;
+  final String image;
+  final String pastoral;
 
   const ProductCard({
     required this.product,
     required this.height,
     required this.width,
+    required this.image,
+    required this.pastoral,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Get.to(() => HomePageDetails(
+              image: image,
+              pastoral: pastoral,
+            ));
+      },
       child: Container(
         margin: const EdgeInsets.only(left: 30),
         height: height,

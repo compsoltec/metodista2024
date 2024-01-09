@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:notification2/module_home/pages/categoty_list.dart';
+import 'package:notification2/module_home/pages/home_page_details.dart';
 import 'package:notification2/module_services/module_services.dart';
 import 'package:notification2/module_youtube/youtube/youtubeInterfaces.dart';
 import '../module_home.dart';
@@ -113,6 +114,8 @@ class _MainPageState extends State<MainPage>
                                   ),
                                   SliverToBoxAdapter(
                                     child: ProductList(
+                                      pastoral:
+                                          homeController.homeModel!.pastoral!,
                                       products: homeController
                                           .homeModel!.fotosCultos!,
                                       cardHeight:
@@ -121,10 +124,15 @@ class _MainPageState extends State<MainPage>
                                       cardWidth:
                                           MediaQuery.of(context).size.width /
                                               1.8,
+                                      viewportFraction: 0.6,
+                                      autoPlay: false,
+                                      loop: false,
                                     ),
                                   ),
                                   SliverToBoxAdapter(
                                     child: ProductList(
+                                      pastoral:
+                                          homeController.homeModel!.pastoral!,
                                       products:
                                           homeController.homeModel!.campanhas!,
                                       cardHeight:
@@ -133,6 +141,9 @@ class _MainPageState extends State<MainPage>
                                       cardWidth:
                                           MediaQuery.of(context).size.width /
                                               1.8,
+                                      viewportFraction: 0.6,
+                                      autoPlay: true,
+                                      loop: true,
                                     ),
                                   ),
                                   SliverToBoxAdapter(

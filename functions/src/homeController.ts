@@ -8,6 +8,7 @@ type homeTypes = {
     avisos: [];
     aniversariantes: [];
     campanhas: [];
+    pastoral: string;
 
 }
 
@@ -17,7 +18,7 @@ type Request = {
 }
 
 const addNewHome = async (req: Request, res: Response) => {
-    const {fotosCultos,avisos,aniversariantes,campanhas} = req.body
+    const {fotosCultos,avisos,aniversariantes,campanhas, pastoral} = req.body
     try{
         const entry = db.collection('home').doc()
         const entryObject = {
@@ -26,6 +27,7 @@ const addNewHome = async (req: Request, res: Response) => {
             avisos,
             aniversariantes,
             campanhas,
+            pastoral
         }
         entry.set(entryObject)
 
@@ -54,7 +56,7 @@ const addNewHome = async (req: Request, res: Response) => {
  
  }
  const updateHome = async (req: Request, res: Response) => {
-    const { body: {fotosCultos,avisos,aniversariantes,campanhas }, params: { homeid } } = req
+    const { body: {fotosCultos,avisos,aniversariantes,campanhas, pastoral }, params: { homeid } } = req
   
     try {
       const home = db.collection('home').doc(homeid)
@@ -64,7 +66,8 @@ const addNewHome = async (req: Request, res: Response) => {
        fotosCultos: fotosCultos || currentData.fotosCultos,
        avisos: avisos || currentData.avisos,
        aniversariantes: aniversariantes || currentData.aniversariantes,
-       campanhas: campanhas || currentData.campanhas
+       campanhas: campanhas || currentData.campanhas,
+       pastoral: pastoral || currentData.pastoral
       }
   
       await home.set(homeObject).catch(error => {
