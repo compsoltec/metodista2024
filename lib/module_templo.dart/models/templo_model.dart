@@ -9,20 +9,22 @@ String temploModelsToJson(List<AgendaTemploModel> data) =>
 class AgendaTemploModel {
   String data;
   List<Horario> horario;
+  String dataTime;
 
-  AgendaTemploModel({
-    required this.data,
-    required this.horario,
-  });
+  AgendaTemploModel(
+      {required this.data, required this.horario, required this.dataTime});
 
-  factory AgendaTemploModel.fromJson(Map<String, dynamic> json) => AgendaTemploModel(
+  factory AgendaTemploModel.fromJson(Map<String, dynamic> json) =>
+      AgendaTemploModel(
         data: json["data"],
+        dataTime: json['dataTime'],
         horario:
             List<Horario>.from(json["horario"].map((x) => Horario.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "data": data,
+        "dataTime": dataTime,
         "horario": List<dynamic>.from(horario.map((x) => x.toJson())),
       };
 }

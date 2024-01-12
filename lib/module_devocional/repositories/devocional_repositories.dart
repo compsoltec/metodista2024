@@ -1,3 +1,5 @@
+import 'package:notification2/module_devocional/module_devocional.dart';
+
 import '../providers/devocional_provider.dart';
 
 class DevocionalRepository {
@@ -7,5 +9,9 @@ class DevocionalRepository {
 
   getDevocional() {
     return api.getDevocional();
+  }
+
+  postDevocional(DevocionalModels devocionalModels) {
+    return api.postDevocional(devocionalModels);
   }
 }

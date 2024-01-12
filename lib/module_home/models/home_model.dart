@@ -5,6 +5,7 @@ class HomeModel {
     required this.campanhas,
     required this.fotosCultos,
     required this.aniversariantes,
+    required this.programacao,
   });
 
   List<dynamic>? avisos;
@@ -13,6 +14,7 @@ class HomeModel {
   List<dynamic>? aniversariantes;
   String? id;
   String? pastoral;
+  List<dynamic>? programacao;
 
   HomeModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -21,6 +23,7 @@ class HomeModel {
     fotosCultos = json['fotosCultos'];
     aniversariantes = json['aniversariantes'];
     pastoral = json['pastoral'];
+    programacao = json['programacao'];
   }
 
   Map<String, dynamic> toJson() {
@@ -31,6 +34,7 @@ class HomeModel {
     _data['campanhas'] = campanhas;
     _data['fotosCultos'] = fotosCultos;
     _data['aniversariantes'] = aniversariantes;
+    _data['programacao'] = programacao;
     return _data;
   }
 
@@ -40,6 +44,27 @@ class HomeModel {
         campanhas: map['campanhas'],
         aniversariantes: map['aniversariantes'],
         fotosCultos: map['fotosCultos'],
-        pastoral: map['pastoral']);
+        pastoral: map['pastoral'],
+        programacao: map['programacao']);
   }
+}
+
+class Programacao {
+  String foto;
+  String descricao;
+
+  Programacao({
+    required this.foto,
+    required this.descricao,
+  });
+
+  factory Programacao.fromJson(Map<String, dynamic> json) => Programacao(
+        foto: json["foto"],
+        descricao: json["descricao"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "foto": foto,
+        "descricao": descricao,
+      };
 }

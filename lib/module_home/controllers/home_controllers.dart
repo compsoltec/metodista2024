@@ -64,12 +64,12 @@ class HomeController extends GetxController {
         ConstantsEndPoint.URL_BASE + ConstantsEndPoint.URL_HOME,
       );
       if (result.statusCode == 200) {
-            isLoading(false);
+        isLoading(false);
 
         ///data successfully
         final responseData = (result.data['data'] ?? []) as List;
         homeModel = HomeModel.fromJson(responseData[0]);
-        
+        print(responseData);
       } else {
         print('error fetching data');
       }

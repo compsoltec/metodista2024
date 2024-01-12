@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:notification2/module_testemunhos/controllers/controllers.dart';
+import 'package:notification2/modulo_main_widget/presenter/main_widget.dart';
 import 'package:notification2/pages/home_page.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -78,6 +79,7 @@ class _MyAppState extends State<MyApp> {
     final testemunhosController = Get.put(TestemunhosController());
     final inscricoesController = Get.put(InscricoesController());
     final agendaTemploController = Get.put(AgendaTemploController());
+    final homeController = Get.put(HomeController());
     final SharedPreferenceModule pref = getIt.get();
     pref.saveUserData(token);
     setState(() {
@@ -85,6 +87,7 @@ class _MyAppState extends State<MyApp> {
       testemunhosController.getTestemunhos();
       inscricoesController.getInscricoes();
       agendaTemploController.getAgendaTemplo();
+      homeController.fetchData();
     });
   }
 
@@ -96,7 +99,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: NewHome(),
+      home: MainWidget (),
     );
   }
 }

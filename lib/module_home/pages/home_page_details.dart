@@ -49,7 +49,7 @@ class HomePageDetails extends StatelessWidget {
                           EdgeInsets.only(left: 20.0, right: 40.0, bottom: 130),
                       child: Container(
                         padding: EdgeInsets.all(5.0),
-                        color: Colors.black.withOpacity(0.8),
+                        color: Colors.black.withOpacity(1.0),
                         child: Text(
                           pastoral,
                           style: const TextStyle(

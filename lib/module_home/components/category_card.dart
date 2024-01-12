@@ -56,19 +56,9 @@ class CategoryCard extends StatelessWidget {
                   : Container(
                       height: 80,
                       width: 90,
-                      decoration: BoxDecoration(
-                          gradient: RadialGradient(
-                              colors: [
-                            Color(0xff596678),
-                            Color(0xff323a45),
-                          ],
-                              center: Alignment(0, 0),
-                              radius: 0.8,
-                              focal: Alignment(0, 0),
-                              focalRadius: 0.1)),
-                      padding: EdgeInsets.all(8.0),
-                      child: Center(
-                        child: Image.asset(image),
+                      child: Image.network(
+                        'https://firebasestorage.googleapis.com/v0/b/metodista-842fa.appspot.com/o/WhatsApp%20Image%202022-08-12%20at%2012.51.32.jpeg?alt=media&token=ab516b3a-c9dc-425d-8fd1-a5b74edd1fd7',
+                        fit: BoxFit.cover,
                       ),
                     )
             ],

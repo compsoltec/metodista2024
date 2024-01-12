@@ -19,4 +19,22 @@ class DevocionalProvider extends GetConnect {
     }
     return devocionalList;
   }
+
+  Future<Response> postDevocional(DevocionalModels devocionalModels) async {
+    var headers = {'Content-Type': 'application/json'};
+    var data = json.encode({
+      "data": devocionalModels.data,
+      "deovcional": devocionalModels.devocional,
+      "foto": devocionalModels.foto,
+      "": devocionalModels.sequencia,
+      "titulo": devocionalModels.titulo,
+    });
+    String baseUrl =
+        ConstantsEndPoint.URL_BASEOLDSERVER + ConstantsEndPoint.URL_DEVOCIONAL;
+    final response = await put(baseUrl, data);
+    if (response.isOk) {
+      Get.defaultDialog(title: 'Devocional adicionado com sucesso');
+    }
+    return response;
+  }
 }

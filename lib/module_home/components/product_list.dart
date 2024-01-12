@@ -1,6 +1,7 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:notification2/module_config/constants/colors_constants.dart';
 import 'package:notification2/module_home/models/home_model.dart';
 import 'package:notification2/module_home/pages/home_page_details.dart';
 
@@ -41,10 +42,10 @@ class ProductList extends StatelessWidget {
           itemBuilder: (_, index) {
             return ProductCard(
               pastoral: pastoral,
-              image: products[index],
+              image: products[index]['foto'],
               height: cardHeight,
               width: cardWidth,
-              product: products[index],
+              product: products[index]['descricao'],
             );
           },
           scale: 0.8,
@@ -59,7 +60,7 @@ class ProductList extends StatelessWidget {
                     "The itemCount is too big, we suggest use FractionPaginationBuilder instead of DotSwiperPaginationBuilder in this sitituation");
               }
               Color activeColor = Colors.grey.shade600;
-              Color color = Colors.white.withOpacity(.3);
+              Color color = ColorsConstants().cruzColor;
               double size = 10.0;
               double space = 5.0;
 
@@ -123,7 +124,6 @@ class ProductCard extends StatelessWidget {
   final double width;
   final String image;
   final String pastoral;
-
   const ProductCard({
     required this.product,
     required this.height,
@@ -138,7 +138,7 @@ class ProductCard extends StatelessWidget {
       onTap: () {
         Get.to(() => HomePageDetails(
               image: image,
-              pastoral: pastoral,
+              pastoral: product,
             ));
       },
       child: Container(
@@ -146,8 +146,7 @@ class ProductCard extends StatelessWidget {
         height: height,
         width: width,
         decoration: BoxDecoration(
-          image:
-              DecorationImage(image: NetworkImage(product), fit: BoxFit.cover),
+          image: DecorationImage(image: NetworkImage(image), fit: BoxFit.cover),
           borderRadius: BorderRadius.all(Radius.circular(24)),
           color: mediumYellow,
         ),

@@ -9,6 +9,7 @@ type homeTypes = {
     aniversariantes: [];
     campanhas: [];
     pastoral: string;
+    programacao:[{}];
 
 }
 
@@ -18,7 +19,7 @@ type Request = {
 }
 
 const addNewHome = async (req: Request, res: Response) => {
-    const {fotosCultos,avisos,aniversariantes,campanhas, pastoral} = req.body
+    const {fotosCultos,avisos,aniversariantes,campanhas, pastoral,programacao} = req.body
     try{
         const entry = db.collection('home').doc()
         const entryObject = {
@@ -27,7 +28,8 @@ const addNewHome = async (req: Request, res: Response) => {
             avisos,
             aniversariantes,
             campanhas,
-            pastoral
+            pastoral,
+            programacao
         }
         entry.set(entryObject)
 

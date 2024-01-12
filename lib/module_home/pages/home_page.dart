@@ -112,40 +112,40 @@ class _MainPageState extends State<MainPage>
                                   SliverToBoxAdapter(
                                     child: topHeader,
                                   ),
-                                  SliverToBoxAdapter(
-                                    child: ProductList(
-                                      pastoral:
-                                          homeController.homeModel!.pastoral!,
-                                      products: homeController
-                                          .homeModel!.fotosCultos!,
-                                      cardHeight:
-                                          MediaQuery.of(context).size.height /
-                                              3.7,
-                                      cardWidth:
-                                          MediaQuery.of(context).size.width /
-                                              1.8,
-                                      viewportFraction: 0.6,
-                                      autoPlay: false,
-                                      loop: false,
-                                    ),
-                                  ),
-                                  SliverToBoxAdapter(
-                                    child: ProductList(
-                                      pastoral:
-                                          homeController.homeModel!.pastoral!,
-                                      products:
-                                          homeController.homeModel!.campanhas!,
-                                      cardHeight:
-                                          MediaQuery.of(context).size.height /
-                                              3.7,
-                                      cardWidth:
-                                          MediaQuery.of(context).size.width /
-                                              1.8,
-                                      viewportFraction: 0.6,
-                                      autoPlay: true,
-                                      loop: true,
-                                    ),
-                                  ),
+                                  // SliverToBoxAdapter(
+                                  //   child: ProductList(
+                                  //     pastoral:
+                                  //         homeController.homeModel!.pastoral!,
+                                  //     products: homeController
+                                  //         .homeModel!.fotosCultos!,
+                                  //     cardHeight:
+                                  //         MediaQuery.of(context).size.height /
+                                  //             3.7,
+                                  //     cardWidth:
+                                  //         MediaQuery.of(context).size.width /
+                                  //             1.8,
+                                  //     viewportFraction: 0.6,
+                                  //     autoPlay: false,
+                                  //     loop: false,
+                                  //   ),
+                                  // ),
+                                  // SliverToBoxAdapter(
+                                  //   child: ProductList(
+                                  //     pastoral:
+                                  //         homeController.homeModel!.pastoral!,
+                                  //     products:
+                                  //         homeController.homeModel!.campanhas!,
+                                  //     cardHeight:
+                                  //         MediaQuery.of(context).size.height /
+                                  //             3.7,
+                                  //     cardWidth:
+                                  //         MediaQuery.of(context).size.width /
+                                  //             1.8,
+                                  //     viewportFraction: 0.6,
+                                  //     autoPlay: true,
+                                  //     loop: true,
+                                  //   ),
+                                  // ),
                                   SliverToBoxAdapter(
                                     child: tabBar,
                                   )

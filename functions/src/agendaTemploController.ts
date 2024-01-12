@@ -6,6 +6,7 @@ import {db} from './config/firebase'
 type temploTypes = {
     data: string;
     horarios: [];
+    dataTime: string;
    
 
 }
@@ -16,13 +17,14 @@ type Request = {
 }
 
 const addNewAgendaTemplo = async (req: Request, res: Response) => {
-    const {data,horarios} = req.body
+    const {data,horarios, dataTime} = req.body
     try{
         const entry = db.collection('templo').doc()
         const entryObject = {
             id: entry.id,
             data,
             horarios,
+            dataTime
             
         }
         entry.set(entryObject)
@@ -39,7 +41,7 @@ const addNewAgendaTemplo = async (req: Request, res: Response) => {
  const getAgendaTemplo = async (req: Request, res: Response) => {
     try{
         const  templo : temploTypes[] = []
-        const querySnapshot = await db.collection('templo').get()
+        const querySnapshot = await db.collection('templo').orderBy('dataTime').get()
         querySnapshot.forEach((doc: any) => templo.push(doc.data()))
         return res.status(200).send({
           status: true,

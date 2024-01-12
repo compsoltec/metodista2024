@@ -1,11 +1,14 @@
 import 'dart:io';
+import 'package:notification2/admin/module_home/pages/devocional/adicionar_devocional.dart';
+
 import '../../../module_common_deps/module_common_deps.dart';
 import '../../../module_designer_system/module_designer_system.dart';
+import '../../../module_youtube/components/custom_drawer.dart';
 import '../module_home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomePageAdmin extends StatefulWidget {
+class HomePageAdmin extends CustomDrawerContent {
   @override
   State<HomePageAdmin> createState() => _HomePageAdminState();
 }
@@ -14,13 +17,13 @@ class _HomePageAdminState extends State<HomePageAdmin> {
   HomeControllerAdmin homeController = Get.put(HomeControllerAdmin());
   List<CustomButtomModel> imageList = [
     CustomButtomModel(
-        image: 'assets/icons/botao-home.png',
+        image: 'assets/icons/home.png',
         page: '/home_edit',
         text: 'Configurar Home'),
     CustomButtomModel(
-        image: 'assets/icons/nota-musical.png',
+        image: 'assets/icons/home.png',
         page: '/home_edit',
-        text: 'Configurar Home'),
+        text: 'Adicionar Devocional'),
 
     // 'assets/icons/botao-home.png',
     // 'assets/icons/nota-musical.png',
@@ -56,7 +59,7 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () {
-                            Get.toNamed('/home_edit');
+                            Get.to(() => AdicionarDevocional());
                           },
                           child: Container(
                               decoration: const BoxDecoration(
@@ -78,15 +81,18 @@ class _HomePageAdminState extends State<HomePageAdmin> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Image.asset(
-                                    imageList[index].image!,
-                                    height: 90,
+                                  SizedBox(
+                                    width: 40,
+                                    child: Image.asset(
+                                      imageList[index].image!,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                   const SizedBox(
                                     height: 15,
                                   ),
-                                  const Text(
-                                    'Configurar Home',
+                                  Text(
+                                    imageList[index].text!,
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold),
@@ -160,6 +166,4 @@ class _HomePageAdminState extends State<HomePageAdmin> {
       ),
     ));
   }
-
-  
 }
