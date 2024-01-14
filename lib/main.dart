@@ -8,6 +8,8 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:notification2/module_config/constants/constantsEndPoint.dart';
 import 'package:notification2/module_login/controllers/login_controllers.dart';
+import 'package:notification2/module_notification/controllers/notification_controllers.dart';
+import 'package:notification2/module_notification/models/token_models.dart';
 import 'package:notification2/module_pastorais/controllers/pastorais_controllers.dart';
 import 'package:notification2/module_testemunhos/controllers/controllers.dart';
 import 'package:notification2/module_videos/controllers/videos_controllers.dart';
@@ -93,6 +95,9 @@ class _MyAppState extends State<MyApp> {
     final videoController = Get.put(VideosController());
     final pastoraisController = Get.put(PastoraisController());
     final loginController = Get.put(LoginController());
+    final tokenController = Get.put(NotificationController());
+
+    tokenController.postToken(TokenModels(id: token));
 
     final SharedPreferenceModule pref = getIt.get();
     pref.saveUserData(token);
@@ -106,20 +111,6 @@ class _MyAppState extends State<MyApp> {
       loginController.getLogin();
       pastoraisController.getPastorais();
     });
-  }
-
-  _saveTokenFirebase(String token) async {
-    final body = json.encode({'token': token});
-
-    final responseProd = await http.put(
-        Uri.parse('${ConstantsEndPoint.URL_BASE}/token'),
-        headers: {'Content-Type': 'application/json'},
-        body: body);
-    if (responseProd.statusCode == 200) {
-      print('Aqui ${token}');
-    } else {
-      print(responseProd.statusCode);
-    } // Print the Token in Console
   }
 
   // This widget is the root of your application.

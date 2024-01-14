@@ -46,4 +46,19 @@ class NotificationProvider extends GetConnect {
     }
     return response;
   }
+
+  Future<Response> postToken(TokenModels tokenModels) async {
+    var data = json.encode({
+      "token": tokenModels.id,
+    });
+
+    final response = await post(
+      ConstantsEndPoint.URL_BASE + ConstantsEndPoint.URL_TOKEN,
+      data,
+    );
+    if (response.isOk) {
+      print('Token Salvo');
+    }
+    return response;
+  }
 }

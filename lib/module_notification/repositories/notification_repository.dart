@@ -1,4 +1,5 @@
 import 'package:notification2/module_notification/models/notification_models.dart';
+import 'package:notification2/module_notification/models/token_models.dart';
 import 'package:notification2/module_notification/providers/notification_provider.dart';
 
 class NotificationRepository {
@@ -12,5 +13,9 @@ class NotificationRepository {
 
   postNotificaiton(NotificationModels notificationModels) {
     return api.postNotification(notificationModels);
+  }
+
+  postToken(TokenModels tokenModels) {
+    return api.postToken(tokenModels);
   }
 }

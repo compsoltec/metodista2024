@@ -33,4 +33,10 @@ class NotificationController extends GetxController {
       loading(false);
     });
   }
+
+  postToken(TokenModels tokenModels) async {
+    notificationRepository
+        .postToken(tokenModels)
+        .then((data) {}, onError: (e) {});
+  }
 }

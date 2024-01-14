@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:notification2/module_notification/controllers/notification_controllers.dart';
-import 'package:notification2/module_notification/models/notification_models.dart';
-
 import '../../module_config/constants/colors_constants.dart';
 import '../../module_designer_system/components/custom_textField.dart';
 
@@ -70,10 +68,10 @@ class NotificationPage extends StatelessWidget {
                 ),
                 child: Obx(
                   () => notificationController.loading.value
-                      ? Center(
+                      ? const Center(
                           child: CircularProgressIndicator.adaptive(),
                         )
-                      : Center(
+                      : const Center(
                           child: Text(
                             'Enviar Notificação',
                             style: TextStyle(

@@ -12,9 +12,11 @@ class ListarTemplo extends CustomDrawerContent {
 }
 
 class _ListarTemploState extends State<ListarTemplo> {
-  final agendaTemploController = Get.put(AgendaTemploController());
+  AgendaTemploController agendaTemploController =
+      Get.put(AgendaTemploController());
   @override
   Widget build(BuildContext context) {
+    agendaTemploController.getAgendaTemplo();
     return SafeArea(
         child: Column(
       children: <Widget>[
@@ -105,7 +107,7 @@ class _ListarTemploState extends State<ListarTemplo> {
                                       color: ColorsConstants().primaryColor,
                                       borderRadius: BorderRadius.only(
                                           topRight: Radius.circular(20))),
-                                  width: Get.size.width * 0.396,
+                                  width: Get.size.width * 0.335,
                                   child: Center(
                                       child: Column(
                                     crossAxisAlignment:
@@ -144,7 +146,7 @@ class _ListarTemploState extends State<ListarTemplo> {
                                 color: ColorsConstants().primaryColor,
                               ),
                               SizedBox(
-                                width: Get.size.width * 0.25,
+                                width: Get.size.width * 0.32,
                                 child: Center(child: Text('Evento')),
                               ),
                               Container(
@@ -194,7 +196,7 @@ class _ListarTemploState extends State<ListarTemplo> {
                                                   .primaryColor,
                                             ),
                                             SizedBox(
-                                              width: Get.size.width * 0.25,
+                                              width: Get.size.width * 0.32,
                                               height: Get.size.height * 0.15,
                                               child: Padding(
                                                 padding: const EdgeInsets.only(

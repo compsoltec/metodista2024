@@ -5,7 +5,7 @@ import {db} from './config/firebase'
 
 type temploTypes = {
     data: string;
-    horarios: [];
+    horario: [];
     dataTime: string;
    
 
@@ -17,13 +17,12 @@ type Request = {
 }
 
 const addNewAgendaTemplo = async (req: Request, res: Response) => {
-    const {data,horarios, dataTime} = req.body
+    const {data,horario, dataTime} = req.body
     try{
         const entry = db.collection('templo').doc()
         const entryObject = {
-            id: entry.id,
             data,
-            horarios,
+            horario,
             dataTime
             
         }
@@ -54,7 +53,7 @@ const addNewAgendaTemplo = async (req: Request, res: Response) => {
  
  }
  const updateAgendaTemplo = async (req: Request, res: Response) => {
-    const { body: {data,horarios }, params: { temploid } } = req
+    const { body: {data,horario }, params: { temploid } } = req
   
     try {
       const templo = db.collection('templo').doc(temploid)
@@ -62,7 +61,7 @@ const addNewAgendaTemplo = async (req: Request, res: Response) => {
   
       const temploObject = {
        data: data || currentData.data,
-       horarios: horarios || currentData.horarios,
+       horario: horario || currentData.horario,
        
       }
   

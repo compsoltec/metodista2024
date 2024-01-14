@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:notification2/module_designer_system/components/custom_alert_dialog.dart';
 import '../../module_config/module_config.dart';
 import '../models/inscricoes_model.dart';
 
@@ -36,7 +37,19 @@ class InscricoesProvider extends GetConnect {
         '/${inscricoesModel.id}';
     final response = await put(baseUrl, data);
     if (response.isOk) {
-      Get.defaultDialog(title: 'Inscrição atualizada com sucesso');
+      Get.dialog(
+        CustomDialogBox(
+            onPressed: () {
+              Get.back();
+            },
+            onPressedLeft: () {
+              Get.back();
+            },
+            textLeft: '',
+            title: 'Inscrição',
+            descriptions: 'Atualizada com Sucesso',
+            text: 'Cancelar'),
+      );
     }
     return response;
   }

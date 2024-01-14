@@ -13,14 +13,17 @@ class TextFieldComponents extends StatelessWidget {
       height: MediaQuery.of(context).size.width * 0.16,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(width: 1.0, color: Colors.black26)),
+          border: Border.all(width: 1.0, color: Colors.grey.shade300)),
       child: TextFormField(
         controller: inscritosController.controllerNome,
         decoration: const InputDecoration(
           border: InputBorder.none,
           hintStyle: TextStyle(fontSize: 14),
           hintText: 'Insira seu nome',
-          icon: Icon(Icons.person),
+          icon: Padding(
+            padding: EdgeInsets.only(left: 5),
+            child: Icon(Icons.person),
+          ),
         ),
       ),
     );
