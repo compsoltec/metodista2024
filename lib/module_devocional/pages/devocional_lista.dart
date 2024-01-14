@@ -61,7 +61,7 @@ class _DevocionalListaState extends State<DevocionalLista> {
             ),
           ),
           SizedBox(
-              height: MediaQuery.of(context).size.height,
+              height: Get.size.height * 0.87,
               child: GridView.builder(
                   shrinkWrap: true,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

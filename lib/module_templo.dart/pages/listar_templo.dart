@@ -189,13 +189,13 @@ class _ListarTemploState extends State<ListarTemplo> {
                                             ),
                                             Container(
                                               width: 1,
-                                              height: Get.size.height * 0.1,
+                                              height: Get.size.height * 0.15,
                                               color: ColorsConstants()
                                                   .primaryColor,
                                             ),
                                             SizedBox(
                                               width: Get.size.width * 0.25,
-                                              height: Get.size.height * 0.1,
+                                              height: Get.size.height * 0.15,
                                               child: Padding(
                                                 padding: const EdgeInsets.only(
                                                     left: 5, right: 2),
@@ -205,13 +205,14 @@ class _ListarTemploState extends State<ListarTemplo> {
                                               ),
                                             ),
                                             Container(
+                                              height: Get.size.height * 0.15,
                                               width: 1,
                                               color: ColorsConstants()
                                                   .primaryColor,
                                             ),
                                             SizedBox(
                                               width: Get.size.width * 0.26,
-                                              height: Get.size.height * 0.1,
+                                              height: Get.size.height * 0.15,
                                               child: Padding(
                                                 padding: const EdgeInsets.only(
                                                     left: 5, right: 2),

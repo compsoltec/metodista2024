@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CustomDrawerController {
   CustomDrawerController(
@@ -359,11 +360,12 @@ class CustomDrawerItem extends StatelessWidget {
   CustomDrawerItem({this.onPressed, this.text, this.icon});
 
   CustomDrawerItem.initWithPage(
-      {this.onPressed, this.text, this.icon, this.alias, this.page});
+      {this.onPressed, this.text, this.icon, this.alias, this.page, this.get});
 
   GestureTapCallback? onPressed;
   Widget? text;
   Widget? icon;
+  GetX? get;
 
   String? alias;
   CustomDrawerContent? page;

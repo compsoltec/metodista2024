@@ -25,11 +25,11 @@ class _AdicionarDevocionalState extends State<AdicionarDevocional> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: ColorsConstants().primaryColor,
         elevation: 0,
         centerTitle: true,
+        iconTheme: const IconThemeData(color: Colors.white),
         title: Text(
           'Adicionar Devocional',
           style: GoogleFonts.quicksand(
@@ -38,173 +38,150 @@ class _AdicionarDevocionalState extends State<AdicionarDevocional> {
       ),
       body: Form(
           key: devocional.formKey,
-          child: Stack(
-            children: <Widget>[
-              Container(
-                color: ColorsConstants().primaryColor,
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  width: MediaQuery.of(context).size.width,
-                  height: 700,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40),
-                      topRight: Radius.circular(40),
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: <Widget>[
+                const SizedBox(
+                  height: 20,
+                ),
+                CustomTextField(
+                    labelText: 'Título',
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'O campo Pedido de Título não pode estar vázio';
+                      }
+                      return null;
+                    },
+                    obscureText: false,
+                    controller: devocional.controllerTitulo),
+                const SizedBox(height: 10),
+                CustomTextField(
+                    labelText: 'Data',
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'O campo Pedido de Data não pode estar vázio';
+                      }
+                      return null;
+                    },
+                    obscureText: false,
+                    controller: devocional.controllerData),
+                const SizedBox(height: 10),
+                GestureDetector(
+                  onTap: () {
+                    selectFile();
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: devocional.urlDownload != null
+                          ? ColorsConstants().cruzColor
+                          : ColorsConstants().primaryColor,
+                      borderRadius: BorderRadius.circular(15),
                     ),
-                    color: Colors.white,
-                  ),
-                  child: Column(
-                    children: <Widget>[
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      CustomTextField(
-                          labelText: 'Título',
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'O campo Pedido de Título não pode estar vázio';
-                            }
-                            return null;
-                          },
-                          obscureText: false,
-                          controller: devocional.controllerTitulo),
-                      const SizedBox(height: 10),
-                      CustomTextField(
-                          labelText: 'Data',
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'O campo Pedido de Data não pode estar vázio';
-                            }
-                            return null;
-                          },
-                          obscureText: false,
-                          controller: devocional.controllerData),
-                      const SizedBox(height: 10),
-                      GestureDetector(
-                        onTap: () {
-                          selectFile();
-                        },
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            color: devocional.urlDownload != null
-                                ? ColorsConstants().cruzColor
-                                : ColorsConstants().primaryColor,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Center(
-                              child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SizedBox(),
-                              loading
-                                  ? CircularProgressIndicator(
-                                      color: Colors.white,
-                                    )
-                                  : Text(
-                                      devocional.urlDownload != null
-                                          ? 'Devocional Adicionado'
-                                          : 'Adicionar Devocional',
-                                      style: TextStyle(
-                                          color: devocional.urlDownload != null
-                                              ? Colors.black
-                                              : Colors.white,
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 15),
-                                    ),
-                              devocional.urlDownload != null
-                                  ? Icon(Icons.download_done)
-                                  : SizedBox(),
-                              if (devocional.urlDownload != null)
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 10),
-                                  child: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        devocional.urlDownload = null;
-                                      });
-                                    },
-                                    icon: Icon(
-                                      Icons.delete,
-                                      color: Colors.red,
-                                    ),
-                                  ),
-                                )
-                            ],
-                          )),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          selectFile();
-                        },
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            color: devocional.urlDownload != null
-                                ? ColorsConstants().cruzColor
-                                : ColorsConstants().primaryColor,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Center(
-                              child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SizedBox(),
-                              Obx(
-                                () => devocional.loading.value
-                                    ? Center(
-                                        child: CircularProgressIndicator
-                                            .adaptive(),
-                                      )
-                                    : Text(
-                                        'Salvar Devocional',
-                                        style: TextStyle(
-                                            color:
-                                                devocional.urlDownload != null
-                                                    ? Colors.black
-                                                    : Colors.white,
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 15),
-                                      ),
+                    child: Center(
+                        child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(),
+                        loading
+                            ? CircularProgressIndicator(
+                                color: Colors.white,
+                              )
+                            : Text(
+                                devocional.urlDownload != null
+                                    ? 'Devocional Adicionado'
+                                    : 'Adicionar Devocional',
+                                style: TextStyle(
+                                    color: devocional.urlDownload != null
+                                        ? Colors.black
+                                        : Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 15),
                               ),
-                              devocional.urlDownload != null
-                                  ? Icon(Icons.download_done)
-                                  : SizedBox(),
-                              if (devocional.urlDownload != null)
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 10),
-                                  child: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        devocional.urlDownload = null;
-                                      });
-                                    },
-                                    icon: Icon(
-                                      Icons.delete,
-                                      color: Colors.red,
-                                    ),
-                                  ),
-                                )
-                            ],
-                          )),
-                        ),
-                      ),
-                    ],
+                        devocional.urlDownload != null
+                            ? Icon(Icons.download_done)
+                            : SizedBox(),
+                        if (devocional.urlDownload != null)
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10),
+                            child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  devocional.urlDownload = null;
+                                });
+                              },
+                              icon: Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              ),
+                            ),
+                          )
+                      ],
+                    )),
                   ),
                 ),
-              )
-            ],
+                const SizedBox(
+                  height: 10,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    selectFile();
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: devocional.urlDownload != null
+                          ? ColorsConstants().cruzColor
+                          : ColorsConstants().primaryColor,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Center(
+                        child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(),
+                        Obx(
+                          () => devocional.loading.value
+                              ? Center(
+                                  child: CircularProgressIndicator.adaptive(),
+                                )
+                              : Text(
+                                  'Salvar Devocional',
+                                  style: TextStyle(
+                                      color: devocional.urlDownload != null
+                                          ? Colors.black
+                                          : Colors.white,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 15),
+                                ),
+                        ),
+                        devocional.urlDownload != null
+                            ? Icon(Icons.download_done)
+                            : SizedBox(),
+                        if (devocional.urlDownload != null)
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10),
+                            child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  devocional.urlDownload = null;
+                                });
+                              },
+                              icon: Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              ),
+                            ),
+                          )
+                      ],
+                    )),
+                  ),
+                ),
+              ],
+            ),
           )),
     );
   }
@@ -240,6 +217,7 @@ class _AdicionarDevocionalState extends State<AdicionarDevocional> {
 
   Future selectFile() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
+    print('Aqui');
 
     if (result == null) return;
     final path = result.files.single.path!;

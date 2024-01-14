@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CustomButtomModel {
   String? image;
-  String? page;
+   VoidCallback? page;
   String? text;
   CustomButtomModel({
     required this.image,

@@ -19,6 +19,7 @@ class _HomePageEditState extends State<HomePageEdit> {
     homeController.campanhas = homeController.homeModel!.campanhas;
     homeController.aniversariantes = homeController.homeModel!.aniversariantes;
     return Scaffold(
+      
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
           backgroundColor: Colors.black,

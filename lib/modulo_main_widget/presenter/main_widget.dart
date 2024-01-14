@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:notification2/admin/admin.dart';
 import 'package:notification2/module_home/pages/new_home_page.dart';
 import 'package:notification2/module_inscricoes/pages/inscricoes.dart';
+import 'package:notification2/module_login/controllers/login_controllers.dart';
+import 'package:notification2/module_login/pages/login_page.dart';
+import 'package:notification2/module_pastorais/controllers/pastorais_controllers.dart';
+import 'package:notification2/module_pastorais/pages/pastorais_lista.dart';
 import 'package:notification2/module_templo.dart/pages/listar_templo.dart';
+import 'package:notification2/module_videos/pages/video_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../module_devocional/pages/devocional_lista.dart';
 import '../../module_services/module_services.dart';
 import '../../module_services/service_locator.dart';
@@ -23,6 +30,9 @@ class MainWidget extends StatefulWidget {
 
 class _MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
   late CustomDrawerController _drawerController;
+  final PastoraisController pastoraisController =
+      Get.put(PastoraisController());
+  final LoginController loginController = Get.put(LoginController());
 
   @override
   void initState() {
@@ -87,25 +97,29 @@ class _MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
         ),
         CustomDrawerItem.initWithPage(
           text: const Text(
-            'Pedido de Oração',
+            'Reels',
             style: TextStyle(color: Colors.white, fontSize: 18),
           ),
-          // icon: SizedBox(
-          //     height: 30,
-          //     width: 30,
-          //     child: Image.asset('images/icone_oracao.png')),
-          // page: PedidoDeOracao(),
+          icon: SizedBox(
+              height: 30,
+              width: 30,
+              child: Image.asset('assets/icone_youtube.png')),
+          page: VideoPage(),
         ),
         CustomDrawerItem.initWithPage(
           text: const Text(
-            'Espaço Kids',
+            'Pastorais',
             style: TextStyle(color: Colors.white, fontSize: 18),
           ),
-          // icon: SizedBox(
-          //     width: 30,
-          //     height: 30,
-          //     child: Image.asset('images/icone_kids.png')),
-          // page: MenuKidsScreen(),
+          icon: const SizedBox(
+              width: 30,
+              height: 30,
+              child: Icon(
+                Icons.menu_book_sharp,
+                color: Colors.white,
+                size: 25,
+              )),
+          page: PastoraisLista(),
         ),
         CustomDrawerItem.initWithPage(
           text: const Text(
@@ -115,47 +129,43 @@ class _MainWidgetState extends State<MainWidget> with TickerProviderStateMixin {
           icon: SizedBox(
               height: 30,
               width: 30,
-              child: Image.asset('assets/icone_youtube.png')),
+              child: Image.asset(
+                'assets/social.png',
+                color: Colors.white,
+              )),
           page: Cultos_Youtube(),
         ),
-        CustomDrawerItem.initWithPage(
-          text: const Text(
-            'Youtube',
-            style: TextStyle(color: Colors.white, fontSize: 18),
-          ),
-          icon: SizedBox(
-              height: 30,
-              width: 30,
-              child: Image.asset('assets/icone_youtube.png')),
-          page: HomePageAdmin(),
-        ),
-        // CustomDrawerItem.initWithPage(
-        //     text: const Text(
-        //       'Ministérios',
-        //       style: TextStyle(color: Colors.white, fontSize: 18),
-        //     ),
-        //     icon: SizedBox(
-        //         width: 30,
-        //         height: 30,
-        //         child: Image.asset('images/icone_ministerio.png')),
-        //     page: MenuMinisterios()),
-        // pref.getAdminData().contains('admin')
-        //     ? CustomDrawerItem.initWithPage(
-        //         text: const Text(
-        //           'Administrativo',
-        //           style: TextStyle(color: Colors.white, fontSize: 18),
-        //         ),
-        //         icon:
-        //             const Icon(Icons.admin_panel_settings, color: Colors.white),
-        //         page: MenuAdministrativo())
-        //     : CustomDrawerItem.initWithPage(
-        //         text: const Text(
-        //           'Login',
-        //           style: TextStyle(color: Colors.transparent, fontSize: 18),
-        //         ),
-        //         icon: const Icon(Icons.admin_panel_settings,
-        //             color: Colors.transparent),
-        //         page: LoginPage())
+        loginController.isAdmin
+            ? CustomDrawerItem.initWithPage(
+                text: const Text(
+                  'Administrador',
+                  style: TextStyle(color: Colors.white, fontSize: 18),
+                ),
+                icon: SizedBox(
+                    height: 30,
+                    width: 30,
+                    child: Icon(
+                      Icons.settings,
+                      size: 25,
+                      color: Colors.white,
+                    )),
+                page: LoginPage(),
+              )
+            : CustomDrawerItem.initWithPage(
+                text: const Text(
+                  'Login',
+                  style: TextStyle(color: Colors.white, fontSize: 18),
+                ),
+                icon: SizedBox(
+                    height: 30,
+                    width: 30,
+                    child: Icon(
+                      Icons.login,
+                      size: 25,
+                      color: Colors.white,
+                    )),
+                page: LoginPage(),
+              ),
       ],
     );
   }
