@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'app.dart';
 import 'core/core.dart';
-import 'core/di/injection_container.dart' as di;
+import 'features/features.dart';
 
 const String authorization =
     'Key=AAAAP_L4yBQ:APA91bFdtOCmGPwRNGZeDg2RGMx22hXcdqT2RQNmTti2gSgIj5dxuT20KacT1Vpg09wcyb6kkFu4Gz_LuBcz9QONunSg7bvbl889D-yXyJhg-arSKsqBSFd3dFOWk5XJzCuFpEd4PWqz';
@@ -16,7 +15,18 @@ void main() async {
   await Firebase.initializeApp();
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  await di.init();
+  runApp(const MyApp());
+}
 
-  runApp(const App());
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Church App',
+      theme: AppTheme.theme,
+      home: const HomePage(),
+    );
+  }
 }

@@ -11,6 +11,8 @@ import { addLogin ,getAllLogin} from "./loginControllers";
 import { addEscalas, getAllEscalas } from "./escalasControllers";
 import { addNewAcesso, addNewAcessoUser, getAcesso, getAcessoUser, solicitarAcesso } from "./acessoControllers";
 import { addNewCadastro, getCadastro } from "./cadastroControllers";
+import { addEvent, deleteEvent, getEvents, updateEvent } from "./new_project/events";
+
 
 const app = express()
 
@@ -63,5 +65,12 @@ app.get('/acesso/:acessoid/token/:token', getAcessoUser),
 
 app.get('/cadastro', getCadastro)
 app.post('/cadastro', addNewCadastro)
+
+//event
+
+app.post('/events',addEvent)
+app.get('/events', getEvents)
+app.put('/events/:eventId', updateEvent)
+app.delete('/events/:eventId',deleteEvent)
 
 exports.app = functions.https.onRequest(app);

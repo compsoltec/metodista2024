@@ -1,12 +1,19 @@
-import '../../feature/home/home.dart';
+import '../../features/features.dart';
 import '../core.dart';
 
+final sl = GetIt.instance;
+
 Future<void> init() async {
-  // Repositories
-  Get.lazyPut<HomeRepository>(
-    () => HomeRepositoryImpl(),
+  // Bloc
+  sl.registerFactory(
+    () => EventBloc(addEventUseCase: sl()),
   );
 
   // Use cases
-  Get.lazyPut(() => GetHomeDataUseCase(Get.find()));
+  sl.registerLazySingleton(() => AddEventUseCase(sl()));
+
+  // Repository
+  sl.registerLazySingleton<EventRepository>(
+    () => EventRepositoryImpl(),
+  );
 }
