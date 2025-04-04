@@ -1,1 +1,0 @@
-export 'templo_controllers.dart';

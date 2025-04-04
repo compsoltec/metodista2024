@@ -1,1 +1,0 @@
-export 'pastorais_controllers.dart';

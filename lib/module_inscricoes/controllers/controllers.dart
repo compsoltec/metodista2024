@@ -1,1 +1,0 @@
-export 'inscricoes_controllers.dart';
