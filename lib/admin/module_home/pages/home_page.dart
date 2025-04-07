@@ -1,8 +1,8 @@
 import 'dart:io';
-import 'package:notification2/admin/module_home/pages/devocional/adicionar_devocional.dart';
-import 'package:notification2/module_notification/pages/notification_page.dart';
-import 'package:notification2/module_pastorais/pages/adicionar_pastorais.dart';
-import 'package:notification2/modulo_main_widget/presenter/main_widget.dart';
+import 'package:metodista/admin/module_home/pages/devocional/adicionar_devocional.dart';
+import 'package:metodista/module_notification/pages/notification_page.dart';
+import 'package:metodista/module_pastorais/pages/adicionar_pastorais.dart';
+import 'package:metodista/modulo_main_widget/presenter/main_widget.dart';
 
 import '../../../module_common_deps/module_common_deps.dart';
 import '../../../module_designer_system/module_designer_system.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notification2/admin/admin.dart';
+import 'package:metodista/admin/admin.dart';
 
 import '../models/category.dart';
 

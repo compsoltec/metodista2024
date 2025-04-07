@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:notification2/module_inscricoes/controllers/controllers.dart';
+import 'package:metodista/module_inscricoes/controllers/controllers.dart';
 
 import '../pages/seinscrever_page.dart';
 
@@ -10,8 +10,12 @@ class AtividadeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() => inscricoesController.loading.value
-        ? Center(
-            child: CircularProgressIndicator.adaptive(),
+        ? SizedBox(
+            width: Get.size.width * 1.0,
+            height: Get.size.height * 1.0,
+            child: Center(
+              child: CircularProgressIndicator.adaptive(),
+            ),
           )
         : SizedBox(
             height: MediaQuery.of(context).size.height,

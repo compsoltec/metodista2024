@@ -2,11 +2,12 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:notification2/admin/admin.dart';
-import 'package:notification2/module_config/constants/colors_constants.dart';
-import 'package:notification2/module_designer_system/components/custom_alert_dialog.dart';
-import 'package:notification2/module_login/controllers/login_controllers.dart';
+import 'package:metodista/admin/admin.dart';
+import 'package:metodista/module_config/constants/colors_constants.dart';
+import 'package:metodista/module_designer_system/components/custom_alert_dialog.dart';
+import 'package:metodista/module_login/controllers/login_controllers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../module_youtube/components/custom_drawer.dart';
 import '../components/background.dart';
@@ -21,7 +22,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    loginController.getLogin();
     final size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -81,6 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                     }
                     return null;
                   },
+                  obscureText: true,
                   decoration: InputDecoration(
                     labelText: 'Senha',
                     labelStyle: TextStyle(
@@ -129,7 +130,22 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+// Função para criar um usuário
+  Future<void> createUser(String email, String password) async {
+    try {
+      // Chama o método createUserWithEmailAndPassword para criar o usuário
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      print('Usuário criado com sucesso!');
+    } catch (e) {
+      print('Erro ao criar usuário: $e');
+    }
+  }
+
   _verificarLogin() async {
+    loginController.getLogin();
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     if (loginController.formKey.currentState!.validate()) {
       if (loginController.loginList

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:notification2/module_notification/controllers/notification_controllers.dart';
+import 'package:metodista/module_notification/controllers/notification_controllers.dart';
 import '../../module_config/constants/colors_constants.dart';
 import '../../module_designer_system/components/custom_textField.dart';
 

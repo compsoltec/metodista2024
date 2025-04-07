@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:notification2/app_properties.dart';
-import 'package:notification2/module_config/constants/colors_constants.dart';
-import 'package:notification2/module_designer_system/components/custom_alert_dialog_error.dart';
-import 'package:notification2/module_inscricoes/components/textField_components.dart';
-import 'package:notification2/module_inscricoes/controllers/inscricoes_controllers.dart';
-import 'package:notification2/module_inscricoes/models/inscricoes_model.dart';
+import 'package:metodista/app_properties.dart';
+import 'package:metodista/module_config/constants/colors_constants.dart';
+import 'package:metodista/module_designer_system/components/custom_alert_dialog_error.dart';
+import 'package:metodista/module_inscricoes/components/textField_components.dart';
+import 'package:metodista/module_inscricoes/controllers/inscricoes_controllers.dart';
+import 'package:metodista/module_inscricoes/models/inscricoes_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../module_services/module_services.dart';

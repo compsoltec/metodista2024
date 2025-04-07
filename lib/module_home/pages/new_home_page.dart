@@ -1,11 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:notification2/module_devocional/controllers/devocional_controllers.dart';
-import 'package:notification2/module_home/module_home.dart';
-import 'package:notification2/module_home/pages/material_design.dart';
-import 'package:notification2/module_home/pages/sliping_card.dart';
-import 'package:notification2/module_youtube/components/custom_drawer.dart';
+import 'package:metodista/module_devocional/controllers/devocional_controllers.dart';
+import 'package:metodista/module_home/module_home.dart';
+import 'package:metodista/module_home/pages/material_design.dart';
+import 'package:metodista/module_home/pages/sliping_card.dart';
+import 'package:metodista/module_youtube/components/custom_drawer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../module_devocional/pages/devocional.dart';

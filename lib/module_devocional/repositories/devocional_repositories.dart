@@ -1,4 +1,4 @@
-import 'package:notification2/module_devocional/module_devocional.dart';
+import 'package:metodista/module_devocional/module_devocional.dart';
 
 import '../providers/devocional_provider.dart';
 

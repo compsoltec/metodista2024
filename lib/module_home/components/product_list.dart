@@ -1,9 +1,9 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:notification2/module_config/constants/colors_constants.dart';
-import 'package:notification2/module_home/models/home_model.dart';
-import 'package:notification2/module_home/pages/home_page_details.dart';
+import 'package:metodista/module_config/constants/colors_constants.dart';
+import 'package:metodista/module_home/models/home_model.dart';
+import 'package:metodista/module_home/pages/home_page_details.dart';
 
 import '../../app_properties.dart';
 import '../models/product.dart';

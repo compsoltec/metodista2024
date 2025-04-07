@@ -1,4 +1,4 @@
-import 'package:notification2/module_inscricoes/models/inscricoes_model.dart';
+import 'package:metodista/module_inscricoes/models/inscricoes_model.dart';
 
 import '../providers/inscricoes_provider.dart';
 

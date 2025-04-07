@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide Response;
-import 'package:notification2/module_testemunhos/providers/testemunhos_provider.dart';
-import 'package:notification2/module_testemunhos/repositories/testemunhos_repositories.dart';
+import 'package:metodista/module_testemunhos/providers/testemunhos_provider.dart';
+import 'package:metodista/module_testemunhos/repositories/testemunhos_repositories.dart';
 
 import '../models/testemunhos_model.dart';
 

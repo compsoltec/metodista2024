@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:notification2/module_devocional/controllers/devocional_controllers.dart';
-import 'package:notification2/module_devocional/pages/devocional_executar.dart';
+import 'package:metodista/module_devocional/controllers/devocional_controllers.dart';
+import 'package:metodista/module_devocional/pages/devocional_executar.dart';
 
 import '../module_home.dart';
 

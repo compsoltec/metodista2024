@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:notification2/module_home/module_home.dart';
+import 'package:metodista/module_home/module_home.dart';
 import '../../module_config/constants/colors_constants.dart';
 
 class Aniversariantes extends StatelessWidget {

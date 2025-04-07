@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:notification2/module_videos/models/videos_models.dart';
+import 'package:metodista/module_videos/models/videos_models.dart';
 
 import '../providers/videos_provider.dart';
 import '../repositories/videos_repository.dart';

@@ -6,17 +6,18 @@ List<TokenModels> tokenFromJson(str) =>
 String tokenModelsToJson(TokenModels data) => json.encode(data.toJson());
 
 class TokenModels {
-  String id;
+  String uuid;
+  String token;
 
   TokenModels({
-    required this.id,
+    required this.uuid,
+    required this.token,
   });
 
   factory TokenModels.fromJson(Map<String, dynamic> json) => TokenModels(
-        id: json["id"],
+        uuid: json["uuid"],
+        token: json['token'],
       );
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-      };
+  Map<String, dynamic> toJson() => {"uuid": uuid, "token": token};
 }

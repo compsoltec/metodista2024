@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:notification2/module_devocional/module_devocional.dart';
-import 'package:notification2/module_devocional/pages/devocional_executar.dart';
+import 'package:metodista/module_devocional/module_devocional.dart';
+import 'package:metodista/module_devocional/pages/devocional_executar.dart';
 
 import '../../module_config/constants/colors_constants.dart';
 import '../../module_youtube/components/custom_drawer.dart';

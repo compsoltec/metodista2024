@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:notification2/module_home/models/home_model.dart';
+import 'package:metodista/module_home/models/home_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferenceModule {
@@ -8,6 +8,8 @@ class SharedPreferenceModule {
   static const String _PREF_USER = "token";
   static const String _PREF_ACESSOS = "acessos";
   static const String _PREF_ADMIN = "admin";
+  static const String _PREF_UUID = "uuid";
+
   SharedPreferenceModule({required this.pref});
 
   void clear() => pref.clear();
@@ -18,7 +20,8 @@ class SharedPreferenceModule {
       pref.setStringList(_PREF_ACESSOS, userDataInJson);
   void saveAdminData(String userDataInJson) =>
       pref.setString(_PREF_ADMIN, userDataInJson);
-
+  void saveUuid(String userDataInJson) =>
+      pref.setString(_PREF_UUID, userDataInJson);
   String getUserData() {
     String userDataInJson = pref.getString(_PREF_USER) ?? "";
     return userDataInJson;
@@ -31,6 +34,11 @@ class SharedPreferenceModule {
 
   String getAdminData() {
     String userDataInJson = pref.getString(_PREF_ADMIN) ?? "";
+    return userDataInJson;
+  }
+
+  String getUserUuid() {
+    String userDataInJson = pref.getString(_PREF_UUID) ?? "";
     return userDataInJson;
   }
 }

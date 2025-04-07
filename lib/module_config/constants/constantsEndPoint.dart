@@ -14,4 +14,8 @@ class ConstantsEndPoint {
   static String URL_VIDEOS = "/videos";
   static String URL_PASTORAIS = "/pastorais";
   static String URL_LOGIN = "/login";
+  static String URL_USERS = "/users";
+  static String URL_ESCALAS = "/escalas";
+  static String URL_ACESSO = "/acesso";
+  static String URL_ATIVIDADES = "/atividades";
 }

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:notification2/module_designer_system/components/custom_alert_dialog.dart';
+import 'package:metodista/module_designer_system/components/custom_alert_dialog.dart';
 import '../../module_config/module_config.dart';
 import '../models/inscricoes_model.dart';
 
@@ -10,8 +10,10 @@ class InscricoesProvider extends GetConnect {
     String baseUrl =
         ConstantsEndPoint.URL_BASE + ConstantsEndPoint.URL_INSCRICOES;
     List<InscricoesModel> inscricoesList = <InscricoesModel>[];
+
     final response = await get(baseUrl, decoder: (body) {
       inscricoesList = inscricoesFromJson(body['data']);
+
       return inscricoesList;
     });
     if (response.hasError) {

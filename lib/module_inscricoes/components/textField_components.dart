@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:notification2/module_inscricoes/controllers/inscricoes_controllers.dart';
+import 'package:metodista/module_inscricoes/controllers/inscricoes_controllers.dart';
 
 class TextFieldComponents extends StatelessWidget {
   final inscritosController = Get.put(InscricoesController());

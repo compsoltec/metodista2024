@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:notification2/module_config/constants/colors_constants.dart';
-import 'package:notification2/module_devocional/models/devocional_model.dart';
+import 'package:get/get.dart';
+import 'package:metodista/module_config/constants/colors_constants.dart';
+import 'package:metodista/module_devocional/models/devocional_model.dart';
+import 'package:metodista/module_devocional/pages/devocional_executar.dart';
 
 class Devocional extends StatelessWidget {
   final List<DevocionalModels> devocionalList;
@@ -82,21 +84,13 @@ class Devocional extends StatelessWidget {
                               width: 50,
                               child: GestureDetector(
                                 onTap: () {
-                                  // Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (context) =>
-                                  //             ExecutarDevocional(
-                                  //                 foto: state
-                                  //                     .devocionais[index].foto!,
-                                  //                 titulo: state
-                                  //                     .devocionais[index]
-                                  //                     .titulo!,
-                                  //                 devocional: state
-                                  //                     .devocionais[index]
-                                  //                     .devocional!,
-                                  //                 data: state.devocionais[index]
-                                  //                     .data!)));
+                                  Get.to(() => ExecutarDevocional(
+                                      foto: devocionalList[index].foto,
+                                      titulo: devocionalList[index].titulo,
+                                      devocional:
+                                          devocionalList[index].devocional,
+                                      data: devocionalList[index].data));
+                                
                                 },
                                 child: CircleAvatar(
                                   backgroundColor: Colors.black,

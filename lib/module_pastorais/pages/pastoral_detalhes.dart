@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:notification2/module_config/constants/colors_constants.dart';
+import 'package:metodista/module_config/constants/colors_constants.dart';
 
 class PastoralDetalhes extends StatelessWidget {
   final String image;

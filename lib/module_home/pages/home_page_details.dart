@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import 'package:notification2/module_home/models/home_model.dart';
+import 'package:metodista/module_home/models/home_model.dart';
 
 import '../components/details_components.dart';
 

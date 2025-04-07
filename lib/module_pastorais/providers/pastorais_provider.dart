@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:notification2/module_devocional/module_devocional.dart';
+import 'package:metodista/module_devocional/module_devocional.dart';
 
 import '../../module_config/module_config.dart';
 import '../models/pastorais_model.dart';

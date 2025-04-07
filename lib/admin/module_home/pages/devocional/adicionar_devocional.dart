@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:notification2/module_devocional/module_devocional.dart';
+import 'package:metodista/module_devocional/module_devocional.dart';
 
 import '../../../../module_common_deps/module_common_deps.dart';
 import '../../../../module_config/constants/colors_constants.dart';

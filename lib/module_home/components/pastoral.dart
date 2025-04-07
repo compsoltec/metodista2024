@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:notification2/module_home/models/home_model.dart';
+import 'package:metodista/module_home/models/home_model.dart';
 import '../../module_config/constants/colors_constants.dart';
 
 class Pastoral extends StatelessWidget {

@@ -1,3 +1,6 @@
+import 'package:google_fonts/google_fonts.dart';
+import 'package:metodista/module_designer_system/components/custom_textField.dart';
+
 import '../../../module_common_deps/module_common_deps.dart';
 import '../../../module_designer_system/module_designer_system.dart';
 import '../controllers/controllers.dart';
@@ -14,29 +17,30 @@ class _HomePageEditState extends State<HomePageEdit> {
   HomeControllerAdmin homeController = Get.put(HomeControllerAdmin());
   @override
   Widget build(BuildContext context) {
-    homeController.fotosCulto = homeController.homeModel!.fotosCultos!;
-    homeController.avisos = homeController.homeModel!.avisos;
-    homeController.campanhas = homeController.homeModel!.campanhas;
+    // homeController.fotosCulto = homeController.homeModel!.fotosCultos!;
+    // homeController.avisos = homeController.homeModel!.avisos;
+    // homeController.campanhas = homeController.homeModel!.campanhas;
     homeController.aniversariantes = homeController.homeModel!.aniversariantes;
+
     return Scaffold(
-      
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
           backgroundColor: Colors.black,
           onPressed: () {
-            homeController.putData(
-                homeController.homeModel!.avisos,
-                homeController.homeModel!.campanhas,
-                homeController.fotosCulto,
-                homeController.homeModel!.aniversariantes,
-                homeController.homeModel!.id);
+            homeController.putData(homeController.homeModel!.id,
+                homeController.controllerPastoral.text);
           },
           label: Obx(
             () => homeController.isLoading.value
                 ? const Center(
                     child: CircularProgressIndicator(color: Colors.white),
                   )
-                : Row(children: [Text('Atualizar Informações')]),
+                : Row(children: [
+                    Text(
+                      'Atualizar Informações',
+                      style: GoogleFonts.quicksand(color: Colors.white),
+                    )
+                  ]),
           )),
       body: Column(
         children: [
@@ -48,440 +52,249 @@ class _HomePageEditState extends State<HomePageEdit> {
             ),
           ),
           CustomBody(
-              child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.grey.shade200),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Padding(
-                          padding:
-                              EdgeInsets.only(top: 10, left: 20, bottom: 10),
-                          child: SizedBox(
-                              child: Text(
-                            'Fotos Culto',
-                            style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold),
-                          )),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: 300,
-                          child: Obx(
-                            () => homeController.isLoading.value
-                                ? const Center(
-                                    child: CircularProgressIndicator(
-                                      color: Colors.black,
-                                    ),
-                                  )
-                                : ListView.builder(
-                                    padding: EdgeInsets.zero,
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: homeController
-                                            .fotosCulto!.reversed.length ??
-                                        0,
-                                    itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10),
-                                        child: Container(
-                                          width: 300,
-                                          height: 300,
-                                          decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                  image: NetworkImage(
-                                                      homeController
-                                                          .fotosCulto![index]),
-                                                  fit: BoxFit.cover),
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
-                                          child: Center(
-                                              child: IconButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                homeController.fotosCulto!
-                                                    .removeAt(index);
-                                              });
-                                            },
-                                            icon: const Icon(
-                                              Icons.delete,
-                                              color: Colors.red,
-                                              size: 30,
-                                            ),
-                                          )),
-                                        ),
-                                      );
-                                    }),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: InkWell(
-                            onTap: () {
-                              imgFromGallery('fotosCulto');
-                            },
-                            child: Container(
-                              height: 100,
-                              width: 100,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Colors.grey.shade100),
-                              child: const Center(
-                                  child: Icon(Icons.camera_alt_outlined)),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                      ]),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.grey.shade200),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Padding(
-                          padding:
-                              EdgeInsets.only(top: 10, left: 20, bottom: 10),
-                          child: SizedBox(
-                              child: Text(
-                            'Avisos',
-                            style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold),
-                          )),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: 300,
-                          child: Obx(
-                            () => homeController.isLoading.value
-                                ? const Center(
-                                    child: CircularProgressIndicator(
-                                      color: Colors.black,
-                                    ),
-                                  )
-                                : ListView.builder(
-                                    padding: EdgeInsets.zero,
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: homeController
-                                            .avisos!.reversed.length ??
-                                        0,
-                                    itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10),
-                                        child: Container(
-                                          width: 300,
-                                          height: 300,
-                                          decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                  image: NetworkImage(
-                                                      homeController
-                                                          .avisos![index]),
-                                                  fit: BoxFit.cover),
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
-                                          child: Center(
-                                              child: IconButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                homeController.avisos!
-                                                    .removeAt(index);
-                                              });
-                                            },
-                                            icon: const Icon(
-                                              Icons.delete,
-                                              color: Colors.red,
-                                              size: 30,
-                                            ),
-                                          )),
-                                        ),
-                                      );
-                                    }),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: InkWell(
-                            onTap: () {
-                              imgFromGallery('avisos');
-                            },
-                            child: Container(
-                              height: 100,
-                              width: 100,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Colors.grey.shade100),
-                              child: const Center(
-                                  child: Icon(Icons.camera_alt_outlined)),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                      ]),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.grey.shade200),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Padding(
-                          padding:
-                              EdgeInsets.only(top: 10, left: 20, bottom: 10),
-                          child: SizedBox(
-                              child: Text(
-                            'Campanhas',
-                            style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold),
-                          )),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: 300,
-                          child: Obx(
-                            () => homeController.isLoading.value
-                                ? const Center(
-                                    child: CircularProgressIndicator(
-                                      color: Colors.black,
-                                    ),
-                                  )
-                                : ListView.builder(
-                                    padding: EdgeInsets.zero,
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: homeController
-                                            .campanhas!.reversed.length ??
-                                        0,
-                                    itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10),
-                                        child: Container(
-                                          width: 300,
-                                          height: 300,
-                                          decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                  image: NetworkImage(
-                                                      homeController
-                                                          .campanhas![index]),
-                                                  fit: BoxFit.cover),
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
-                                          child: Center(
-                                              child: IconButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                homeController.campanhas!
-                                                    .removeAt(index);
-                                              });
-                                            },
-                                            icon: const Icon(
-                                              Icons.delete,
-                                              color: Colors.red,
-                                              size: 30,
-                                            ),
-                                          )),
-                                        ),
-                                      );
-                                    }),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: InkWell(
-                            onTap: () {
-                              imgFromGallery('campanhas');
-                            },
-                            child: Container(
-                              height: 100,
-                              width: 100,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Colors.grey.shade100),
-                              child: const Center(
-                                  child: Icon(Icons.camera_alt_outlined)),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                      ]),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.grey.shade200),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Padding(
-                          padding:
-                              EdgeInsets.only(top: 10, left: 20, bottom: 10),
-                          child: SizedBox(
-                              child: Text(
-                            'Aniversariantes',
-                            style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold),
-                          )),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          height: 100,
-                          child: Obx(
-                            () => homeController.isLoading.value
-                                ? const Center(
-                                    child: CircularProgressIndicator(
-                                      color: Colors.black,
-                                    ),
-                                  )
-                                : ListView.builder(
-                                    padding: EdgeInsets.zero,
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: homeController
-                                            .aniversariantes!.reversed.length ??
-                                        0,
-                                    itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10),
-                                          child: Container(
-                                              width: 200,
-                                              height: 100,
-                                              decoration: BoxDecoration(
-                                                  color: Colors.grey.shade100,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20)),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  const SizedBox(
-                                                    width: 10,
-                                                  ),
-                                                  Expanded(
-                                                    child: Text(homeController
-                                                            .aniversariantes![
-                                                        index]),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  IconButton(
-                                                    onPressed: () {
-                                                      setState(() {
-                                                        homeController
-                                                            .aniversariantes!
-                                                            .removeAt(index);
-                                                      });
-                                                    },
-                                                    icon: const Icon(
-                                                      Icons.delete,
-                                                      color: Colors.red,
-                                                      size: 20,
-                                                    ),
-                                                  ),
-                                                ],
-                                              )),
-                                        ),
-                                      );
-                                    }),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    padding:
-                                        const EdgeInsets.only(left: 10, top: 5),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                    height: 55,
-                                    width: MediaQuery.of(context).size.width,
-                                    child: TextField(
-                                      controller: homeController
-                                          .controllerAniversariantes,
-                                      decoration: const InputDecoration(
-                                        border: InputBorder.none,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      homeController.aniversariantes!.add(
-                                          homeController
-                                              .controllerAniversariantes.text);
-                                      homeController.controllerAniversariantes
-                                          .clear();
-                                    });
-                                  },
-                                  child: const CircleAvatar(
-                                    backgroundColor: Colors.black,
-                                    child: Icon(
-                                      Icons.send,
-                                      size: 20,
-                                      color: Colors.white,
-                                    ),
+              child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextFormField(
+                controller: homeController.controllerPastoral,
+                maxLines: 10,
+                decoration: InputDecoration(border: InputBorder.none),
+              ),
+              // Container(
+              //   decoration: BoxDecoration(
+              //       borderRadius: BorderRadius.circular(20),
+              //       color: Colors.grey.shade200),
+              //   child: Column(
+              //       crossAxisAlignment: CrossAxisAlignment.start,
+              //       children: [
+              //         const Padding(
+              //           padding:
+              //               EdgeInsets.only(top: 10, left: 20, bottom: 10),
+              //           child: SizedBox(
+              //               child: Text(
+              //             'Fotos Culto',
+              //             style: TextStyle(
+              //                 fontSize: 14, fontWeight: FontWeight.bold),
+              //           )),
+              //         ),
+              //         SizedBox(
+              //           width: MediaQuery.of(context).size.width,
+              //           height: 300,
+              //           child: Obx(
+              //             () => homeController.isLoading.value
+              //                 ? const Center(
+              //                     child: CircularProgressIndicator(
+              //                       color: Colors.black,
+              //                     ),
+              //                   )
+              //                 : ListView.builder(
+              //                     padding: EdgeInsets.zero,
+              //                     scrollDirection: Axis.horizontal,
+              //                     itemCount: homeController
+              //                             .programacao!.reversed.length ??
+              //                         0,
+              //                     itemBuilder: (context, index) {
+              //                       return Padding(
+              //                         padding: const EdgeInsets.symmetric(
+              //                             horizontal: 10),
+              //                         child: Container(
+              //                           width: 300,
+              //                           height: 300,
+              //                           decoration: BoxDecoration(
+              //                               image: DecorationImage(
+              //                                   image: NetworkImage(
+              //                                       homeController
+              //                                           .programacao![index]),
+              //                                   fit: BoxFit.cover),
+              //                               borderRadius:
+              //                                   BorderRadius.circular(20)),
+              //                           child: Center(
+              //                               child: IconButton(
+              //                             onPressed: () {
+              //                               setState(() {
+              //                                 homeController.programacao!
+              //                                     .removeAt(index);
+              //                               });
+              //                             },
+              //                             icon: const Icon(
+              //                               Icons.delete,
+              //                               color: Colors.red,
+              //                               size: 30,
+              //                             ),
+              //                           )),
+              //                         ),
+              //                       );
+              //                     }),
+              //           ),
+              //         ),
+              //         const SizedBox(
+              //           height: 10,
+              //         ),
+              //         Padding(
+              //           padding: const EdgeInsets.only(left: 10),
+              //           child: InkWell(
+              //             onTap: () {
+              //               imgFromGallery('fotosCulto');
+              //             },
+              //             child: Container(
+              //               height: 100,
+              //               width: 100,
+              //               decoration: BoxDecoration(
+              //                   borderRadius: BorderRadius.circular(20),
+              //                   color: Colors.grey.shade100),
+              //               child: const Center(
+              //                   child: Icon(Icons.camera_alt_outlined)),
+              //             ),
+              //           ),
+              //         ),
+              //         const SizedBox(
+              //           height: 20,
+              //         ),
+              //       ]),
+              // ),
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.grey.shade200),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(top: 10, left: 20, bottom: 10),
+                        child: SizedBox(
+                            child: Text(
+                          'Aniversariantes',
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        )),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height: 100,
+                        child: Obx(
+                          () => homeController.isLoading.value
+                              ? const Center(
+                                  child: CircularProgressIndicator(
+                                    color: Colors.black,
                                   ),
                                 )
-                              ],
-                            )),
-                        const SizedBox(
-                          height: 20,
+                              : ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: homeController
+                                          .aniversariantes!.reversed.length ??
+                                      0,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        child: Container(
+                                            width: 200,
+                                            height: 100,
+                                            decoration: BoxDecoration(
+                                                color: Colors.grey.shade100,
+                                                borderRadius:
+                                                    BorderRadius.circular(20)),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                const SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Expanded(
+                                                  child: Text(homeController
+                                                      .aniversariantes![index]),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                IconButton(
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      homeController
+                                                          .aniversariantes!
+                                                          .removeAt(index);
+                                                    });
+                                                  },
+                                                  icon: const Icon(
+                                                    Icons.delete,
+                                                    color: Colors.red,
+                                                    size: 20,
+                                                  ),
+                                                ),
+                                              ],
+                                            )),
+                                      ),
+                                    );
+                                  }),
                         ),
-                      ]),
-                ),
-                const SizedBox(
-                  height: 100,
-                ),
-              ],
-            ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  padding:
+                                      const EdgeInsets.only(left: 10, top: 5),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(15)),
+                                  height: 55,
+                                  width: MediaQuery.of(context).size.width,
+                                  child: TextField(
+                                    controller: homeController
+                                        .controllerAniversariantes,
+                                    decoration: const InputDecoration(
+                                      border: InputBorder.none,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    homeController.aniversariantes!.add(
+                                        homeController
+                                            .controllerAniversariantes.text);
+                                    homeController.controllerAniversariantes
+                                        .clear();
+                                  });
+                                },
+                                child: const CircleAvatar(
+                                  backgroundColor: Colors.black,
+                                  child: Icon(
+                                    Icons.send,
+                                    size: 20,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              )
+                            ],
+                          )),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ]),
+              ),
+              const SizedBox(
+                height: 100,
+              ),
+            ],
           )),
         ],
       ),

@@ -1,6 +1,6 @@
-import 'package:notification2/module_notification/models/notification_models.dart';
-import 'package:notification2/module_notification/models/token_models.dart';
-import 'package:notification2/module_notification/providers/notification_provider.dart';
+import 'package:metodista/module_notification/models/notification_models.dart';
+import 'package:metodista/module_notification/models/token_models.dart';
+import 'package:metodista/module_notification/providers/notification_provider.dart';
 
 class NotificationRepository {
   final NotificationProvider api;

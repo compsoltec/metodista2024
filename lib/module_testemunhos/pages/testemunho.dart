@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:notification2/module_testemunhos/controllers/testemunhos_controllers.dart';
-import 'package:notification2/module_testemunhos/pages/testemunhos_detalhes_page.dart';
+import 'package:metodista/module_testemunhos/controllers/testemunhos_controllers.dart';
+import 'package:metodista/module_testemunhos/pages/testemunhos_detalhes_page.dart';
 
 import '../../module_youtube/components/custom_drawer.dart';
 

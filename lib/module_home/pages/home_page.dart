@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:notification2/module_home/pages/categoty_list.dart';
-import 'package:notification2/module_home/pages/home_page_details.dart';
-import 'package:notification2/module_services/module_services.dart';
-import 'package:notification2/module_youtube/youtube/youtubeInterfaces.dart';
+import 'package:metodista/module_home/pages/categoty_list.dart';
+import 'package:metodista/module_home/pages/home_page_details.dart';
+import 'package:metodista/module_services/module_services.dart';
+import 'package:metodista/module_youtube/youtube/youtubeInterfaces.dart';
 import '../module_home.dart';
-import 'package:notification2/module_devocional/module_devocional.dart';
+import 'package:metodista/module_devocional/module_devocional.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -104,7 +104,6 @@ class _MainPageState extends State<MainPage>
                             child: NestedScrollView(
                               headerSliverBuilder: (BuildContext context,
                                   bool innerBoxIsScrolled) {
-                                // These are the slivers that show up in the "outer" scroll view.
                                 return <Widget>[
                                   SliverToBoxAdapter(
                                     child: appBar,

@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
-import 'package:notification2/module_inscricoes/providers/inscricoes_provider.dart';
-import 'package:notification2/module_inscricoes/repositories/inscricoes_repositories.dart';
+import 'package:metodista/module_inscricoes/providers/inscricoes_provider.dart';
+import 'package:metodista/module_inscricoes/repositories/inscricoes_repositories.dart';
 import '../models/inscricoes_model.dart';
 
 class InscricoesController extends GetxController {

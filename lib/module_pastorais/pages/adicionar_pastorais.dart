@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:notification2/module_pastorais/controllers/pastorais_controllers.dart';
-import 'package:notification2/module_pastorais/models/pastorais_model.dart';
+import 'package:metodista/module_pastorais/controllers/pastorais_controllers.dart';
+import 'package:metodista/module_pastorais/models/pastorais_model.dart';
 
 import '../../module_config/constants/colors_constants.dart';
 import '../../module_designer_system/components/custom_textField.dart';

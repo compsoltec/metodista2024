@@ -1,6 +1,7 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:metodista/module_config/constants/colors_constants.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../module_youtube/components/custom_drawer.dart';
@@ -22,8 +23,8 @@ class _VideoExecutarState extends State<VideoExecutar> {
   void initState() {
     super.initState();
     // Substitua 'seu_video.mp4' pelo caminho do seu vídeo local ou URL
-    videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(
-        'https://firebasestorage.googleapis.com/v0/b/metodista-novo.appspot.com/o/videos%2FVIDEO-2023-12-11-12-26-20.mp4?alt=media&token=881314b6-f6b3-480b-a730-f15b0bdc4bd2'));
+    videoPlayerController =
+        VideoPlayerController.networkUrl(Uri.parse(widget.video));
     chewieController = ChewieController(
       fullScreenByDefault: true,
       videoPlayerController: videoPlayerController!,
@@ -44,8 +45,11 @@ class _VideoExecutarState extends State<VideoExecutar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        iconTheme: IconThemeData(color: ColorsConstants().primaryColor),
+        elevation: 0,
+        backgroundColor: Colors.white,
         title: Text(
           widget.titulo,
           style: GoogleFonts.quicksand(

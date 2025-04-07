@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 
-import 'package:notification2/module_home/widget/expanded_card_page.dart';
-import 'package:notification2/module_home/widget/expanded_cart.dart';
+import 'package:metodista/module_home/widget/expanded_card_page.dart';
+import 'package:metodista/module_home/widget/expanded_cart.dart';
 
 
 class SlidingCardApp extends StatelessWidget {

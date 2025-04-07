@@ -15,12 +15,13 @@ import '../../../module_home/models/home_model.dart';
 class HomeControllerAdmin extends GetxController {
   FirebaseStorage storage = FirebaseStorage.instance;
   TextEditingController controllerAniversariantes = TextEditingController();
+  TextEditingController controllerPastoral = TextEditingController();
+
   List<File>? imageFileList = [];
   List<File>? imageFinal = [];
-  List<dynamic>? fotosCulto = [];
-  List<dynamic>? avisos = [];
+  List<dynamic>? programacao = [];
+
   List<dynamic>? aniversariantes = [];
-  List<dynamic>? campanhas = [];
 
   var isLoading = false.obs;
   HomeModel? homeModel;
@@ -43,13 +44,7 @@ class HomeControllerAdmin extends GetxController {
       final ref = FirebaseStorage.instance.ref(destination).child('file/');
       await ref.putFile(photo!);
       final urlDownload = await ref.getDownloadURL();
-      if (tipoImagem == 'fotosCulto') {
-        fotosCulto!.add(urlDownload);
-      } else if (tipoImagem == 'campanha') {
-        campanhas!.add(urlDownload);
-      } else if (tipoImagem == 'avisos') {
-        avisos!.add(urlDownload);
-      }
+      programacao!.add(urlDownload);
       print(urlDownload);
     } catch (e) {
       print('error occured');
@@ -76,18 +71,33 @@ class HomeControllerAdmin extends GetxController {
     }
   }
 
-  putData(avisos, campanhas, fotosculto, aniversariantes, id) async {
+  putData(id, pastoral) async {
     isLoading(true);
     try {
       var headers = {'Content-Type': 'application/json'};
       var data = json.encode({
-        "avisos": avisos,
-        "campanhas": campanhas,
-        "fotosCultos": fotosCulto,
-        "aniversariantes": aniversariantes
+        "pastoral": pastoral,
+        "programacao": [
+          {
+            "foto":
+                "https://firebasestorage.googleapis.com/v0/b/metodista-novo.appspot.com/o/home%2Favisos%2FPHOTO-2024-01-06-13-00-34.jpg?alt=media&token=bdc03c02-82cb-4ebf-b525-768d603f9bfb",
+            "descricao": "Culto de Oração"
+          },
+          {
+            "foto":
+                "https://firebasestorage.googleapis.com/v0/b/metodista-novo.appspot.com/o/home%2Favisos%2FPHOTO-2024-01-08-13-58-55.jpg?alt=media&token=1cfbb54e-06f7-40e1-be14-f7abd15d80ce",
+            "descricao":
+                "Nos anos anteriores, você já participou dos 12 Dias de Oração? Não? . Então se programe e venha estar conosco hoje à partir das 19h na Casa do Pai 💒 . Hoje é o 2• Dia de 12, e estaremos Clamando pelo Mês de Fevereiro 🔥 . “DEUS NÃO FAZ NADA SENÃO EM RESPOSTA À ORAÇÃO”. John Wesley"
+          }
+        ],
+        "aniversariantes": [
+          "GRAZIELA SILVA GRAZIEL - 15/01",
+          "ALEXANDRE DE ARAÚJO LOPES - 19/01",
+          "ANDRÉ LUIZ DA SILVA GONÇALVES - 19/01"
+        ]
       });
       final Response result = await dio.put(
-          '${ConstantsEndPoint.URL_BASE}${ConstantsEndPoint.URL_HOME}/${id}',
+          '${ConstantsEndPoint.URL_BASE}${ConstantsEndPoint.URL_HOME}/H6N579qb87osK99SoyL0',
           data: data,
           options: Options(headers: headers));
       if (result.statusCode == 200) {

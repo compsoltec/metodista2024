@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:notification2/module_login/models/login_models.dart';
+import 'package:metodista/module_login/models/login_models.dart';
 
 import '../providers/login_provider.dart';
 import '../repositories/login_repository.dart';
