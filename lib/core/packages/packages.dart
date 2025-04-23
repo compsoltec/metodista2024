@@ -13,6 +13,7 @@ export 'package:get_it/get_it.dart';
 export 'package:google_fonts/google_fonts.dart';
 export 'package:image_picker/image_picker.dart';
 export 'package:intl/intl.dart';
+export 'package:palette_generator/palette_generator.dart';
 export 'package:shared_preferences/shared_preferences.dart';
 export 'package:url_launcher/url_launcher.dart';
 export 'package:uuid/uuid.dart';

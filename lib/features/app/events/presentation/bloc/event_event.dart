@@ -22,3 +22,8 @@ class DeleteEvent extends EventEvent {
 
   DeleteEvent(this.eventId);
 }
+
+class GetEventDetails extends EventEvent {
+  final String eventId;
+  GetEventDetails(this.eventId);
+}

@@ -22,3 +22,13 @@ class EventSuccess extends EventState {
 
   EventSuccess(this.message);
 }
+
+class EventDetailsLoaded extends EventState {
+  final Event event;
+  final int availableSpots;
+
+  EventDetailsLoaded({
+    required this.event,
+    required this.availableSpots,
+  });
+}

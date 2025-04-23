@@ -7,6 +7,7 @@ class Event {
   final int capacity;
   final String eventDate;
   final String createdAt;
+  final String location;
 
   Event({
     required this.id,
@@ -16,5 +17,18 @@ class Event {
     required this.capacity,
     required this.eventDate,
     required this.createdAt,
+    required this.location,
   });
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'description': description,
+      'imageUrl': imageUrl,
+      'capacity': capacity,
+      'eventDate': eventDate,
+      'createdAt': createdAt,
+      'location': location
+    };
+  }
 }

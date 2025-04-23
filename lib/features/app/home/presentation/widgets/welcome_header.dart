@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:metodista/features/app/events/domain/entities/entities.dart';
 
 import '../../../../../core/core.dart';
 import '../../../../features.dart';
 import '../../../events/presentation/bloc/event_bloc.dart';
 import '../../../events/presentation/bloc/event_event.dart';
 import '../../../events/presentation/bloc/event_state.dart';
+
+// event_details_arguments.dart
 
 class WelcomeHeader extends StatefulWidget {
   const WelcomeHeader({super.key});
@@ -90,7 +93,15 @@ class _WelcomeHeaderState extends State<WelcomeHeader> {
                   if (state is EventsLoaded && state.events.isNotEmpty) {
                     Get.toNamed(
                       Routes.eventDetails,
-                      arguments: state.events[0].id.toString(),
+                      arguments: Event(
+                          id: state.events[0].id,
+                          title: state.events[0].title,
+                          description: state.events[0].description,
+                          imageUrl: state.events[0].imageUrl,
+                          capacity: state.events[0].capacity,
+                          eventDate: state.events[0].eventDate,
+                          createdAt: state.events[0].createdAt,
+                          location: state.events[0].location),
                     );
                   }
                 },

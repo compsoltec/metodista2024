@@ -1,7 +1,6 @@
 // event_bloc.dart
 
 import '../../../../../core/core.dart';
-import '../../domain/entities/entities.dart';
 import '../../domain/repositories/event_repository.dart';
 import 'event_event.dart';
 import 'event_state.dart';

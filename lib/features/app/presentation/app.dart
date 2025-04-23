@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:metodista/features/app/events/presentation/bloc/details/event_details_bloc.dart';
 
 import '../../../core/core.dart';
 import '../events/presentation/bloc/event_bloc.dart';
@@ -17,6 +18,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider<EventBloc>(
           create: (context) => sl<EventBloc>(),
+        ),
+        BlocProvider<EventDetailsBloc>(
+          create: (context) => sl<EventDetailsBloc>(),
         ),
       ],
       child: GetMaterialApp(

@@ -198,17 +198,16 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
       _isLoading = true;
     });
 
-    // Criar uma nova instância do evento
     final String eventId = DateTime.now().millisecondsSinceEpoch.toString();
     final event = EventModel(
-      id: eventId,
-      title: _titleController.text,
-      description: _descriptionController.text,
-      imageUrl: _imageUrl!,
-      capacity: _maxAttendees,
-      eventDate: _selectedDate.toIso8601String(),
-      createdAt: DateTime.now().toIso8601String(),
-    );
+        id: eventId,
+        title: _titleController.text,
+        description: _descriptionController.text,
+        imageUrl: _imageUrl!,
+        capacity: _maxAttendees,
+        eventDate: _selectedDate.toIso8601String(),
+        createdAt: DateTime.now().toIso8601String(),
+        location: _locationController.text);
 
     // Despachar o evento para o bloc
     _eventBloc.add(CreateEvent(event));
@@ -589,8 +588,6 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                     ),
                   ),
                   const SizedBox(height: 8),
-
-                  // Slider para número de participantes
                   Slider(
                     value: _maxAttendees.toDouble(),
                     min: 10,

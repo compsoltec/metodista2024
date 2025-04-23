@@ -1,3 +1,4 @@
+// Modificação no modelo Registration
 class Registration {
   final String id;
   final String eventId;
@@ -5,6 +6,8 @@ class Registration {
   final int age;
   final String church;
   final String createdAt;
+  final String phone;
+  final String fcmToken; // Novo campo
 
   Registration({
     required this.id,
@@ -13,25 +16,9 @@ class Registration {
     required this.age,
     required this.church,
     required this.createdAt,
+    required this.phone,
+    required this.fcmToken, // Novo campo obrigatório
   });
-
-  Registration copyWith({
-    String? id,
-    String? eventId,
-    String? name,
-    int? age,
-    String? church,
-    String? createdAt,
-  }) {
-    return Registration(
-      id: id ?? this.id,
-      eventId: eventId ?? this.eventId,
-      name: name ?? this.name,
-      age: age ?? this.age,
-      church: church ?? this.church,
-      createdAt: createdAt ?? this.createdAt,
-    );
-  }
 
   Map<String, dynamic> toJson() {
     return {
@@ -40,7 +27,9 @@ class Registration {
       'name': name,
       'age': age,
       'church': church,
-      'createdAt': createdAt
+      'createdAt': createdAt,
+      'phone': phone,
+      'fcmToken': fcmToken,
     };
   }
 }

@@ -1,6 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'package:metodista/features/app/events/data/repositories/event_repository_impl.dart';
 import 'package:metodista/features/app/events/domain/repositories/event_repository.dart';
+import 'package:metodista/features/app/events/presentation/bloc/details/event_details_bloc.dart';
 import 'package:metodista/features/app/events/presentation/bloc/event_bloc.dart';
 
 import '../../features/app/events/domain/domain.dart';
@@ -16,6 +17,10 @@ Future<void> init() async {
   //! Blocs
   sl.registerFactory(() => HomeBloc(getHomeDataUseCase: sl()));
   sl.registerFactory(() => EventBloc(sl()));
+  sl.registerFactory(() => EventDetailsBloc(
+        eventRepository: sl<EventRepository>(),
+        // outras dependências necessárias
+      ));
 
   //! Use cases
   // Home

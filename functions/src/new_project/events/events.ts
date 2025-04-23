@@ -14,6 +14,7 @@ type EventType = {
   capacity: number; // Number of available slots
   eventDate: string; // Date of the event
   createdAt?: string;
+  location: string;
 };
 
 type RegistrationType = {
@@ -38,7 +39,7 @@ type RegistrationRequest = {
 
 // Create Event Endpoint
 const createEvent = async (req: EventRequest, res: Response) => {
-  const { title, description, imageUrl, capacity, eventDate } = req.body;
+  const { title, description, imageUrl, capacity, eventDate, location } = req.body;
   
   try {
     // Validate required fields
@@ -75,6 +76,7 @@ const createEvent = async (req: EventRequest, res: Response) => {
       imageUrl,
       capacity,
       eventDate,
+      location,
       createdAt: new Date().toISOString()
     };
 
@@ -182,7 +184,7 @@ const getEventById = async (req: EventRequest, res: Response) => {
 // Update Event
 const updateEvent = async (req: EventRequest, res: Response) => {
   const { eventId } = req.params;
-  const { title, description, imageUrl, capacity, eventDate } = req.body;
+  const { title, description, imageUrl, capacity, eventDate, location } = req.body;
   
   try {
     const eventRef = db.collection('events').doc(eventId);
@@ -238,7 +240,8 @@ const updateEvent = async (req: EventRequest, res: Response) => {
       description: description || currentData.description,
       imageUrl: imageUrl || currentData.imageUrl,
       capacity: capacity !== undefined ? capacity : currentData.capacity,
-      eventDate: eventDate || currentData.eventDate
+      eventDate: eventDate || currentData.eventDate,
+      location: location || currentData.location,
     };
     
     await eventRef.update(updatedEvent);

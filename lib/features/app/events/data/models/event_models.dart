@@ -1,4 +1,3 @@
-import '../../../../../core/core.dart';
 import '../../domain/entities/entities.dart';
 
 // Event Model
@@ -11,29 +10,19 @@ class EventModel extends Event {
     required super.capacity,
     required super.eventDate,
     required super.createdAt,
+    required super.location,
   });
 
+  // From JSON - Converts the Map data from API to EventModel instance
   factory EventModel.fromJson(Map<String, dynamic> json) {
     return EventModel(
-      id: json['id'],
-      title: json['title'],
-      description: json['description'],
-      imageUrl: json['imageUrl'],
-      capacity: json['capacity'],
-      eventDate: json['eventDate'],
-      createdAt: json['createdAt'],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'title': title,
-      'description': description,
-      'imageUrl': imageUrl,
-      'capacity': capacity,
-      'eventDate': eventDate,
-      'createdAt': createdAt,
-    };
+        id: json['id'] ?? '',
+        title: json['title'] ?? '',
+        description: json['description'] ?? '',
+        imageUrl: json['imageUrl'] ?? '',
+        capacity: json['capacity'] ?? 0,
+        eventDate: json['eventDate'] ?? '',
+        createdAt: json['createdAt'] ?? '',
+        location: json['location'] ?? '');
   }
 }
