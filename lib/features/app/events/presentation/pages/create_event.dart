@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart' as path;
 
 import '../../../../../core/core.dart';
-import '../../data/models/event_models.dart';
-import '../bloc/event_bloc.dart';
-import '../bloc/event_event.dart';
-import '../bloc/event_state.dart';
+import '../../events.dart';
 
 class CreateEventScreen extends StatefulWidget {
   const CreateEventScreen({super.key});

@@ -13,6 +13,34 @@ class EventBloc extends Bloc<EventEvent, EventState> {
     on<CreateEvent>(_onCreateEvent);
     on<UpdateEvent>(_onUpdateEvent);
     on<DeleteEvent>(_onDeleteEvent);
+    on<GetRegistrationsByFcmTokenEvent>(_onGetRegistrationsByFcmToken);
+    on<GetEventDetails>(_onGetEventDetails); // <-- Adicione essa linha
+  }
+
+  // Adicione esse método também:
+  Future<void> _onGetEventDetails(
+    GetEventDetails event,
+    Emitter<EventState> emit,
+  ) async {
+    emit(EventLoading());
+
+    final eventResult = await eventRepository.getEventById(event.eventId);
+    final registrationsResult =
+        await eventRepository.getEventRegistrations(event.eventId);
+
+    eventResult.fold(
+      (failure) => emit(EventError(failure.message)),
+      (eventData) {
+        registrationsResult.fold(
+          (failure) => emit(EventError(failure.message)),
+          (registrations) {
+            final availableSpots = eventData.capacity - registrations.length;
+            emit(EventDetailsLoaded(
+                event: eventData, availableSpots: availableSpots));
+          },
+        );
+      },
+    );
   }
 
   Future<void> _onFetchEvents(
@@ -75,5 +103,17 @@ class EventBloc extends Bloc<EventEvent, EventState> {
     } catch (e) {
       emit(EventError("Failed to delete event: ${e.toString()}"));
     }
+  }
+
+  Future<void> _onGetRegistrationsByFcmToken(
+      GetRegistrationsByFcmTokenEvent event, Emitter<EventState> emit) async {
+    emit(EventLoading());
+    final result = await eventRepository.getRegistrationsByFcmToken(
+        event.eventId, event.fcmToken);
+
+    result.fold(
+      (failure) => emit(EventError(failure.message)),
+      (registrations) => emit(RegistrationsByFcmTokenLoaded(registrations)),
+    );
   }
 }

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../../../core/core.dart';
-import '../widgets/widgets.dart';
+import '../../../../features.dart';
+import '../../../admin/presentation/pages/admin_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -18,62 +19,105 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      body: Stack(
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.4,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(40),
-                bottomRight: Radius.circular(40),
-              ),
-            ),
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(40),
-                    bottomRight: Radius.circular(40),
-                  ),
-                  child: Image.asset(
-                    'assets/novotemplo.jpeg',
-                    fit: BoxFit.cover,
-                  ),
+      body: BlocProvider(
+        create: (_) => sl<DevotionalBloc>()..add(FetchDevotionals()),
+        child: Stack(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height * 0.4,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(40),
+                  bottomRight: Radius.circular(40),
                 ),
-                Container(
-                  decoration: BoxDecoration(
+              ),
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  ClipRRect(
                     borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(40),
                       bottomRight: Radius.circular(40),
                     ),
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        AppColors.gradientStart.withOpacity(0.6),
-                        AppColors.gradientEnd.withOpacity(0.6),
-                      ],
+                    child: Image.asset(
+                      'assets/novotemplo.jpeg',
+                      fit: BoxFit.cover,
                     ),
                   ),
-                ),
-              ],
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(40),
+                        bottomRight: Radius.circular(40),
+                      ),
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          AppColors.gradientStart.withOpacity(0.6),
+                          AppColors.gradientEnd.withOpacity(0.6),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
 
-          // Main Content
-          SafeArea(
-            child: CustomScrollView(
-              physics: const BouncingScrollPhysics(),
-              slivers: [
-                const SliverToBoxAdapter(
-                  child: WelcomeHeader(),
-                ),
-                SliverToBoxAdapter(
-                  child: Transform.translate(
-                    offset: const Offset(0, -50),
+            // Main Content
+            SafeArea(
+              child: CustomScrollView(
+                physics: const BouncingScrollPhysics(),
+                slivers: [
+                  const SliverToBoxAdapter(child: WelcomeHeader()),
+
+                  // Player do Devocional
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 16),
+                      child: BlocBuilder<DevotionalBloc, DevotionalState>(
+                        builder: (context, state) {
+                          if (state is DevotionalLoading) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          } else if (state is DevotionalLoaded) {
+                            final devotionals = state.devotionals;
+                            final devotionalMaisRecente = devotionals.isNotEmpty
+                                ? devotionals.first
+                                : null;
+
+                            if (devotionalMaisRecente == null) {
+                              return const SizedBox();
+                            }
+
+                            return DevotionalPlayerWidget(
+                              devotional: devotionalMaisRecente,
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => DevotionalDetailPage(
+                                      devotional: devotionalMaisRecente,
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          } else if (state is DevotionalError) {
+                            return Text(state.message);
+                          }
+                          return const SizedBox.shrink();
+                        },
+                      ),
+                    ),
+                  ),
+
+                  // Conteúdo Principal SEM o Transform.translate
+                  SliverToBoxAdapter(
                     child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 20),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 8),
                       decoration: BoxDecoration(
                         color: AppColors.cardColor,
                         borderRadius: BorderRadius.circular(30),
@@ -98,7 +142,7 @@ class HomePage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Quick Access',
+                                  'Menu',
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
@@ -130,11 +174,11 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -153,10 +197,46 @@ class HomePage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                _buildNavItem(Icons.home, 'Home', true),
-                _buildNavItem(Icons.youtube_searched_for, 'YouTube', false),
-                _buildNavItem(Icons.monetization_on, 'Offerings', false),
-                _buildNavItem(Icons.chat, 'Chat', false),
+                _buildNavItem(
+                  icon: Icons.home,
+                  label: 'Home',
+                  isSelected: true,
+                  onTap: () {
+                    // Já está na Home, pode deixar vazio ou recarregar algo se quiser
+                  },
+                ),
+                _buildNavItem(
+                  icon: Icons.youtube_searched_for,
+                  label: 'YouTube',
+                  isSelected: false,
+                  onTap: () {
+                    Get.toNamed(Routes.youtube);
+                  },
+                ),
+                _buildNavItem(
+                  icon: Icons.edit_document,
+                  label: 'Documentos',
+                  isSelected: false,
+                  onTap: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text(
+                              'Funcionalidade de Documentos em desenvolvimento!')),
+                    );
+                  },
+                ),
+                _buildNavItem(
+                  icon: Icons.chat,
+                  label: 'Chat',
+                  isSelected: false,
+                  onTap: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text(
+                              'Funcionalidade de Chat em desenvolvimento!')),
+                    );
+                  },
+                ),
               ],
             ),
           ),
@@ -169,18 +249,22 @@ class HomePage extends StatelessWidget {
     final List<Map<String, dynamic>> quickActions = [
       {
         'icon': Icons.calendar_today,
-        'label': 'Events',
+        'label': 'Eventos',
         'color': AppColors.copper
       },
-      {'icon': Icons.card_giftcard, 'label': 'Donate', 'color': AppColors.sage},
+      {
+        'icon': Icons.card_giftcard,
+        'label': 'Aniversario',
+        'color': AppColors.sage
+      },
       {'icon': Icons.message, 'label': 'Chat', 'color': AppColors.gold},
-      {'icon': Icons.book, 'label': 'Bible', 'color': AppColors.rust},
+      {'icon': Icons.book, 'label': 'Bíblia', 'color': AppColors.rust},
       {
         'icon': Icons.music_note,
         'label': 'Hymns',
         'color': AppColors.darkPurple
       },
-      {'icon': Icons.group, 'label': 'Groups', 'color': AppColors.copper},
+      {'icon': Icons.group, 'label': 'Acessos', 'color': AppColors.copper},
     ];
 
     return GridView.builder(
@@ -199,7 +283,22 @@ class HomePage extends StatelessWidget {
           icon: action['icon'],
           label: action['label'],
           color: action['color'],
-          onTap: () {},
+          onTap: () {
+            switch (action['label']) {
+              case 'Acessos':
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const AdminDashboardPage()),
+                );
+                break;
+              default:
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                      content: Text(
+                          'Funcionalidade de ${action['label']} em desenvolvimento!')),
+                );
+            }
+          },
         );
       },
     );
@@ -252,9 +351,13 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildNavItem(IconData icon, String label, bool isSelected) {
+  Widget _buildNavItem(
+      {required IconData icon,
+      required String label,
+      required bool isSelected,
+      required VoidCallback onTap}) {
     return InkWell(
-      onTap: () {},
+      onTap: onTap,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

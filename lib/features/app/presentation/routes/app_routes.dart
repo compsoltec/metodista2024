@@ -10,4 +10,7 @@ abstract class Routes {
   static const login = '/login';
   static const addEvent = '/add-event';
   static const eventDetails = '/event-details';
+  static const adddevotionals = '/add-devotionals';
+  static const youtube = '/youtube';
+  static const addBirthday = '/add-birthdays';
 }

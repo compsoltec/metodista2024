@@ -15,6 +15,7 @@ type EventType = {
   eventDate: string; // Date of the event
   createdAt?: string;
   location: string;
+  registration: boolean;
 };
 
 type RegistrationType = {
@@ -25,6 +26,7 @@ type RegistrationType = {
   phone: string;
   church?: string; // Optional church field
   createdAt?: string;
+  fcmToken: string;
 };
 
 type EventRequest = {
@@ -39,7 +41,8 @@ type RegistrationRequest = {
 
 // Create Event Endpoint
 const createEvent = async (req: EventRequest, res: Response) => {
-  const { title, description, imageUrl, capacity, eventDate, location } = req.body;
+  const { title, description, imageUrl, capacity, eventDate, location,  registration
+  } = req.body;
   
   try {
     // Validate required fields
@@ -76,8 +79,9 @@ const createEvent = async (req: EventRequest, res: Response) => {
       imageUrl,
       capacity,
       eventDate,
+      registration,
       location,
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
     };
 
     await newEventRef.set(newEvent);
@@ -300,68 +304,60 @@ const deleteEvent = async (req: EventRequest, res: Response) => {
   }
 };
 
-// Registration Management Endpoints
 const registerForEvent = async (req: RegistrationRequest, res: Response) => {
   const { eventId } = req.params;
-  const { name, age, phone, church } = req.body;
-  
+  const { name, age, phone, church,fcmToken } = req.body;
+
   try {
-    // Validate required fields
+    console.log(`📥 New registration attempt for eventId: ${eventId}`);
+
+    // 1️⃣ Validação dos campos obrigatórios
     if (!name || !age || !phone) {
+      console.warn('⚠️ Missing required fields');
       return res.status(400).json({
         status: 'Error',
         message: 'Name, age, and phone are required'
       });
     }
-    
-    // Check if event exists
+
+    // 2️⃣ Verificar se o evento existe
     const eventDoc = await db.collection('events').doc(eventId).get();
     if (!eventDoc.exists) {
+      console.warn('⚠️ Event not found');
       return res.status(404).json({
         status: 'Error',
         message: 'Event not found'
       });
     }
-    
+
     const event = eventDoc.data() as EventType;
-    
-    // Check if the event date has passed
+
+    // 3️⃣ Verificar se a data do evento já passou
     const eventDate = new Date(event.eventDate);
     const now = new Date();
     if (eventDate < now) {
+      console.warn('⚠️ Attempt to register for past event');
       return res.status(400).json({
         status: 'Error',
         message: 'Cannot register for past events'
       });
     }
-    
-    // Check if there are available spots
+
+    // 4️⃣ Verificar se há vagas disponíveis
     const registrationsSnapshot = await db.collection('registrations')
       .where('eventId', '==', eventId)
       .get();
-    
+
     const registrationCount = registrationsSnapshot.size;
-    
+
     if (registrationCount >= event.capacity) {
+      console.warn('⚠️ Event is at full capacity');
       return res.status(409).json({
         status: 'Error',
         message: 'Event is at full capacity'
       });
     }
-    
-    // Check if user is already registered by phone number
-    const existingRegistrations = await db.collection('registrations')
-      .where('eventId', '==', eventId)
-      .where('phone', '==', phone)
-      .get();
-      
-    if (!existingRegistrations.empty) {
-      return res.status(409).json({
-        status: 'Error',
-        message: 'You are already registered for this event'
-      });
-    }
-    
+    // 6️⃣ Criar nova inscrição
     const newRegistrationRef = db.collection('registrations').doc();
     const newRegistration: RegistrationType = {
       id: newRegistrationRef.id,
@@ -370,14 +366,27 @@ const registerForEvent = async (req: RegistrationRequest, res: Response) => {
       age,
       phone,
       church,
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
+      fcmToken,
     };
-    
-    await newRegistrationRef.set(newRegistration);
-    
-    // Calculate remaining spots
+
+    console.log('📝 Saving registration:', newRegistration);
+
+    // Salvar no Firestore com tratamento explícito
+    await newRegistrationRef.set(newRegistration)
+      .then(() => console.log('✅ Registration successfully saved to Firestore'))
+      .catch((err) => {
+        console.error('❌ Firestore write error:', err);
+        return res.status(500).json({
+          status: 'Error',
+          message: 'Failed to save registration'
+        });
+      });
+
+    // 7️⃣ Calcular vagas restantes
     const remainingSpots = event.capacity - (registrationCount + 1);
-    
+
+    // 8️⃣ Retornar sucesso
     return res.status(201).json({
       status: 'Success',
       message: 'Registration successful',
@@ -386,10 +395,47 @@ const registerForEvent = async (req: RegistrationRequest, res: Response) => {
         remainingSpots
       }
     });
+
+  } catch (error) {
+    console.error('❌ Unexpected error:', error);
+    return res.status(500).json({
+      status: 'Error',
+      message: error?.toString() || 'Failed to register for event'
+    });
+  }
+};
+
+
+const getRegistrationsByFcmToken = async (req: any, res: Response) => {
+
+  try {
+    const registrations: RegistrationType[] = [];
+    
+    const querySnapshot = await db.collection('registrations')
+    
+      .get();
+
+    if (querySnapshot.empty) {
+      return res.status(200).json({
+        status: 'Success',
+        message: 'No registrations found for this token and event',
+        data: [],
+      });
+    }
+
+    querySnapshot.forEach((doc: any) => {
+      registrations.push(doc.data());
+    });
+
+    return res.status(200).json({
+      status: 'Success',
+      data: registrations
+    });
+
   } catch (error) {
     return res.status(500).json({
       status: 'Error',
-      message: error || 'Failed to register for event'
+      message: error || 'Failed to fetch registrations by token and event ID'
     });
   }
 };
@@ -496,5 +542,5 @@ export {
   deleteEvent,
   registerForEvent,
   getEventRegistrations,
-  deleteRegistration
+  deleteRegistration,getRegistrationsByFcmToken
 };

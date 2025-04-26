@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:metodista/features/app/events/presentation/bloc/details/event_details_bloc.dart';
+import 'package:metodista/features/features.dart';
 
 import '../../../core/core.dart';
 import '../events/presentation/bloc/event_bloc.dart';
-import '../home/home.dart';
-import 'presentation.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -19,8 +17,11 @@ class App extends StatelessWidget {
         BlocProvider<EventBloc>(
           create: (context) => sl<EventBloc>(),
         ),
-        BlocProvider<EventDetailsBloc>(
-          create: (context) => sl<EventDetailsBloc>(),
+        BlocProvider<DevotionalBloc>(
+          create: (context) => sl<DevotionalBloc>()..getDevotionals,
+        ),
+        BlocProvider<BirthdayBloc>(
+          create: (context) => sl<BirthdayBloc>(),
         ),
       ],
       child: GetMaterialApp(

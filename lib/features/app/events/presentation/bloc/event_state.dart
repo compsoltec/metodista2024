@@ -32,3 +32,9 @@ class EventDetailsLoaded extends EventState {
     required this.availableSpots,
   });
 }
+
+class RegistrationsByFcmTokenLoaded extends EventState {
+  final List<Registration> registrations;
+
+  RegistrationsByFcmTokenLoaded(this.registrations);
+}

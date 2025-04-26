@@ -8,8 +8,6 @@ import '../models/registration_models.dart';
 
 class EventRepositoryImpl implements EventRepository {
   final http.Client client;
-  final String baseUrl =
-      'https://us-central1-metodista-novo.cloudfunctions.net/app';
 
   EventRepositoryImpl(this.client);
 
@@ -138,7 +136,16 @@ class EventRepositoryImpl implements EventRepository {
   Future<Either<Failure, Registration>> registerForEvent(
       String eventId, Registration registration) async {
     try {
-      final registrationModel = registration as RegistrationModel;
+      final registrationModel = RegistrationModel(
+        id: registration.id,
+        eventId: registration.eventId,
+        name: registration.name,
+        age: registration.age,
+        phone: registration.phone,
+        church: registration.church,
+        createdAt: registration.createdAt,
+        fcmToken: registration.fcmToken,
+      );
       final response = await client.post(
         Uri.parse('$baseUrl/events/$eventId/register'),
         headers: {'Content-Type': 'application/json'},
@@ -220,6 +227,38 @@ class EventRepositoryImpl implements EventRepository {
     } catch (e) {
       return Left(
           DatabaseFailure('Failed to cancel registration: ${e.toString()}'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Registration>>> getRegistrationsByFcmToken(
+      String eventId, String fcmToken) async {
+    try {
+      final response = await client.get(
+        Uri.parse('$baseUrl/events/$eventId/registrations/token/$fcmToken'),
+      );
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> responseData = json.decode(response.body);
+        if (responseData['status'] == 'Success' &&
+            responseData['data'] != null) {
+          final List<dynamic> registrationsData = responseData['data'];
+          final List<Registration> registrations = registrationsData
+              .map((json) => RegistrationModel.fromJson(json))
+              .toList();
+          return Right(registrations);
+        } else {
+          return Left(DatabaseFailure('No registrations found'));
+        }
+      } else {
+        final Map<String, dynamic> errorData = json.decode(response.body);
+        final String errorMessage =
+            errorData['message'] ?? 'Failed to fetch registrations';
+        return Left(DatabaseFailure(errorMessage));
+      }
+    } catch (e) {
+      return Left(
+          DatabaseFailure('Error fetching registrations: ${e.toString()}'));
     }
   }
 }

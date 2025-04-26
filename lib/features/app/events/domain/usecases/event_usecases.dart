@@ -73,3 +73,14 @@ class CancelRegistrationUseCase {
     return repository.cancelRegistration(eventId, registrationId);
   }
 }
+
+class GetRegistrationsByFcmTokenUseCase {
+  final EventRepository repository;
+
+  GetRegistrationsByFcmTokenUseCase(this.repository);
+
+  Future<Either<Failure, List<Registration>>> call(
+      String eventId, String fcmToken) {
+    return repository.getRegistrationsByFcmToken(eventId, fcmToken);
+  }
+}

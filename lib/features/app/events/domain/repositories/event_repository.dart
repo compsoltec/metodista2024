@@ -14,4 +14,6 @@ abstract class EventRepository {
       String eventId);
   Future<Either<Failure, void>> cancelRegistration(
       String eventId, String registrationId);
+  Future<Either<Failure, List<Registration>>> getRegistrationsByFcmToken(
+      String eventId, String fcmToken);
 }

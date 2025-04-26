@@ -27,3 +27,13 @@ class GetEventDetails extends EventEvent {
   final String eventId;
   GetEventDetails(this.eventId);
 }
+
+class GetRegistrationsByFcmTokenEvent extends EventEvent {
+  final String eventId;
+  final String fcmToken;
+
+  GetRegistrationsByFcmTokenEvent({
+    required this.eventId,
+    required this.fcmToken,
+  });
+}

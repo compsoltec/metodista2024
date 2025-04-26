@@ -1,10 +1,7 @@
-import 'package:metodista/features/app/events/presentation/bloc/details/event_details_bloc.dart';
-
 import '../../../../core/core.dart';
 import '../../../features.dart';
-import '../../events/presentation/bloc/event_bloc.dart';
-import '../../events/presentation/pages/create_event.dart';
-import '../../events/presentation/pages/events_details.dart';
+import '../../events/events.dart';
+import '../../youtube/youtube.dart';
 
 part 'app_routes.dart';
 
@@ -25,9 +22,30 @@ class AppPages {
     ),
     GetPage(
       name: Routes.eventDetails,
-      page: () => BlocProvider<EventDetailsBloc>(
-        create: (context) => sl<EventDetailsBloc>(),
+      page: () => BlocProvider<EventBloc>(
+        create: (context) => sl<EventBloc>(),
         child: EventDetailsScreen(),
+      ),
+    ),
+    GetPage(
+      name: Routes.adddevotionals,
+      page: () => BlocProvider<DevotionalBloc>(
+        create: (context) => sl<DevotionalBloc>(),
+        child: AddDevotionalPage(),
+      ),
+    ),
+    GetPage(
+      name: Routes.youtube,
+      page: () => BlocProvider<YoutubeBloc>(
+        create: (context) => sl<YoutubeBloc>(),
+        child: YoutubePage(),
+      ),
+    ),
+    GetPage(
+      name: Routes.addBirthday,
+      page: () => BlocProvider<BirthdayBloc>(
+        create: (context) => sl<BirthdayBloc>(),
+        child: AddBirthdayPage(),
       ),
     ),
   ];
