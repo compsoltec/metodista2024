@@ -1,12 +1,30 @@
-import '../core.dart';
+class ServerException implements Exception {
+  final String message;
 
-abstract class Failure extends Equatable {
-  @override
-  List<Object?> get props => [];
+  ServerException({this.message = 'Server error occurred'});
 }
 
-class ServerFailure extends Failure {}
+class CacheException implements Exception {
+  final String message;
 
-class CacheFailure extends Failure {}
+  CacheException({this.message = 'Cache error occurred'});
+}
 
-class NetworkFailure extends Failure {}
+// in core/error/failures.dart
+abstract class Failure {
+  final String message;
+
+  Failure(this.message);
+}
+
+class ServerFailure extends Failure {
+  ServerFailure(super.message);
+}
+
+class CacheFailure extends Failure {
+  CacheFailure(super.message);
+}
+
+class DatabaseFailure extends Failure {
+  DatabaseFailure(super.message);
+}
