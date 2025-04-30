@@ -63,10 +63,8 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
     return dateFormat.format(DateTime.parse(dateString));
   }
 
-  void _showRegistrationForm(BuildContext context) {
-    final repository = GetIt.instance<EventRepository>();
-
-    showModalBottomSheet(
+  void _showRegistrationForm(BuildContext context) async {
+    final registered = await showModalBottomSheet<bool>(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.white,
@@ -81,11 +79,16 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
           top: 20,
         ),
         child: RegistrationForm(
-          repository: repository,
+          repository: sl<EventRepository>(),
           eventId: event!.id,
         ),
       ),
     );
+
+    if (registered == true) {
+      // Recarrega os participantes
+      _initializeData();
+    }
   }
 
   void _showRegistrationsModal() {
@@ -181,6 +184,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
                         ),
                         SizedBox(height: 24),
                         _buildParticipantsSection(),
+                        SizedBox(height: 50),
                       ],
                     ),
                   ),

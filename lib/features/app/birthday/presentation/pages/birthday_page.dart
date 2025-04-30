@@ -44,7 +44,7 @@ class _BirthdayPageState extends State<BirthdayPage>
         iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: AppColors.primaryColor,
         title: const Text(
-          'Aniversariantes 🎂',
+          'Aniversariantes',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         bottom: TabBar(

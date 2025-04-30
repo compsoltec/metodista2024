@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:metodista/features/app/events/domain/entities/entities.dart';
 
 import '../../../../../core/core.dart';
 import '../../../../features.dart';
-import '../../../events/presentation/bloc/event_bloc.dart';
-import '../../../events/presentation/bloc/event_event.dart';
-import '../../../events/presentation/bloc/event_state.dart';
 
 // event_details_arguments.dart
 
@@ -39,7 +35,7 @@ class _WelcomeHeaderState extends State<WelcomeHeader> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(24, 20, 24, 80),
+      padding: const EdgeInsets.fromLTRB(24, 20, 24, 40),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -68,6 +64,15 @@ class _WelcomeHeaderState extends State<WelcomeHeader> {
                       letterSpacing: -0.5,
                     ),
                   ),
+                  Text(
+                    'Mais que uma igreja, minha 2ª casa',
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 14,
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
                 ],
               ),
               Container(
@@ -85,7 +90,7 @@ class _WelcomeHeaderState extends State<WelcomeHeader> {
               ),
             ],
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 70),
           BlocBuilder<EventBloc, EventState>(
             builder: (context, state) {
               return GestureDetector(
@@ -101,7 +106,8 @@ class _WelcomeHeaderState extends State<WelcomeHeader> {
                           capacity: state.events[0].capacity,
                           eventDate: state.events[0].eventDate,
                           createdAt: state.events[0].createdAt,
-                          location: state.events[0].location),
+                          location: state.events[0].location,
+                          registration: state.events[0].registration),
                     );
                   }
                 },

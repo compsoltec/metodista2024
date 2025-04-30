@@ -16,13 +16,13 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _locationController = TextEditingController();
+  bool _requiresRegistration = false;
 
   DateTime _selectedDate = DateTime.now().add(const Duration(days: 1));
   TimeOfDay _selectedTime = TimeOfDay.now();
   int _maxAttendees = 50;
   String? _imageUrl;
   bool _isUploading = false;
-
   late final DateFormat _dateFormat;
   final EventBloc _eventBloc = GetIt.instance<EventBloc>();
   bool _isLoading = false;
@@ -204,7 +204,8 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
         capacity: _maxAttendees,
         eventDate: _selectedDate.toIso8601String(),
         createdAt: DateTime.now().toIso8601String(),
-        location: _locationController.text);
+        location: _locationController.text,
+        registration: _requiresRegistration);
 
     // Despachar o evento para o bloc
     _eventBloc.add(CreateEvent(event));
@@ -486,6 +487,30 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
+                  ),
+// Switch para inscrição
+                  const SizedBox(height: 24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Precisa de Inscrição?',
+                        style: TextStyle(
+                          color: AppColors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Switch(
+                        value: _requiresRegistration,
+                        activeColor: AppColors.gold,
+                        onChanged: (value) {
+                          setState(() {
+                            _requiresRegistration = value;
+                          });
+                        },
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 16),
 

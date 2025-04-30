@@ -1,9 +1,7 @@
 import 'package:http/http.dart' as http;
-import 'package:metodista/features/app/events/data/repositories/event_repository_impl.dart';
-import 'package:metodista/features/app/events/presentation/bloc/event_bloc.dart';
-import 'package:metodista/features/app/youtube/youtube.dart';
+import 'package:metodista/features/app/notices/presentation/bloc/notices_bloc.dart';
 
-import '../../features/app/events/domain/domain.dart';
+import '../../features/app/notices/notices.dart';
 import '../../features/features.dart';
 import '../core.dart';
 
@@ -17,6 +15,9 @@ Future<void> init() async {
   //! Blocs
   sl.registerFactory(() => HomeBloc(getHomeDataUseCase: sl()));
   sl.registerFactory(() => EventBloc(sl()));
+  sl.registerFactory(() => CourcesBloc(sl()));
+  sl.registerFactory(() => NoticesBloc(sl()));
+
   sl.registerFactory(() => DevotionalBloc(
       getDevotionals: sl(), createDevotional: sl(), deleteDevotional: sl()));
   sl.registerFactory(() => YoutubeBloc(sl()));
@@ -26,7 +27,15 @@ Future<void> init() async {
         deleteBirthdayUseCase: sl(),
         getBirthdaysTodayUseCase: sl(),
       ));
-
+  sl.registerFactory(() => PastoralBloc(
+      getPastoralsUseCase: sl(),
+      getPastoralByIdUseCase: sl(),
+      createPastoralUseCase: sl(),
+      updatePastoralUseCase: sl(),
+      deletePastoralUseCase: sl()));
+  sl.registerFactory(() => PreachingBloc(
+      getPreaching: sl(), createPreaching: sl(), deletePreaching: sl()));
+  sl.registerFactory(() => CellsBloc(sl()));
   //! Use cases
   // Home
   sl.registerLazySingleton(() => GetHomeDataUseCase(sl()));
@@ -36,6 +45,11 @@ Future<void> init() async {
   sl.registerLazySingleton(() => CreateDevotionalUseCase(sl()));
   sl.registerLazySingleton(() => DeleteDevotionalUseCase(sl()));
   sl.registerLazySingleton(() => GetBirthdaysTodayUseCase(sl()));
+
+  //Cources
+  sl.registerLazySingleton(() => CreateCourcesUseCase(sl()));
+  sl.registerLazySingleton(() => DeleteCourcesUseCase(sl()));
+  sl.registerLazySingleton(() => GetCourcessUseCase(sl()));
 
   // Events
   sl.registerLazySingleton(() => GetEventsUseCase(sl()));
@@ -55,14 +69,50 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetBirthdaysUseCase(sl()));
   sl.registerLazySingleton(() => CreateBirthdayUseCase(sl()));
   sl.registerLazySingleton(() => DeleteBirthdayUseCase(sl()));
+
+  //Pastoral
+
+  sl.registerLazySingleton(() => CreatePastoralUseCase(sl())); // Added
+  sl.registerLazySingleton(() => GetPastoralsUseCase(sl())); // Added
+  sl.registerLazySingleton(() => GetPastoralByIdUseCase(sl())); // Added
+  sl.registerLazySingleton(() => UpdatePastoralUseCase(sl())); // Added
+  sl.registerLazySingleton(() => DeletePastoralUseCase(sl())); // Added
+
+  //Preaching
+  sl.registerLazySingleton(() => GetPreachingUseCase(sl()));
+  sl.registerLazySingleton(() => CreatePreachingUseCase(sl()));
+  sl.registerLazySingleton(() => DeletePreachingUseCase(sl()));
+
+  //Cells
+  sl.registerLazySingleton(() => CreateCellsUseCase(sl()));
+  sl.registerLazySingleton(() => DeleteCellsUseCase(sl()));
+  sl.registerLazySingleton(() => GetCellssUseCase(sl()));
+
+  //Notices
+  sl.registerLazySingleton(() => CreateNoticesUseCase(sl()));
+  sl.registerLazySingleton(() => DeleteNoticesUseCase(sl()));
+  sl.registerLazySingleton(() => GetNoticessUseCase(sl()));
+
   //! Repositories
   sl.registerLazySingleton<HomeRepository>(() => HomeRepositoryImpl());
   sl.registerLazySingleton<EventRepository>(() => EventRepositoryImpl(sl()));
+  sl.registerLazySingleton<CourcesRepository>(
+      () => CourcesRemoteDataSourceImpl(sl()));
+
   sl.registerLazySingleton<YoutubeRepository>(
       () => YoutubeRepositoryImpl(sl()));
+  sl.registerLazySingleton<PreachingRepository>(
+      () => PreachingRepositoryImpl(sl()));
 
   sl.registerLazySingleton<DevotionalRepository>(
       () => DevotionalRepositoryImpl(sl()));
   sl.registerLazySingleton<BirthdayRepository>(
       () => BirthdayRemoteDataSourceImpl(sl()));
+
+  sl.registerLazySingleton<PastoralRepository>(
+      () => PastoralRepositoryImpl(sl()));
+  sl.registerLazySingleton<CellsRepository>(
+      () => CellsRemoteDataSourceImpl(sl()));
+  sl.registerLazySingleton<NoticesRepository>(
+      () => NoticesRemoteDataSourceImpl(sl()));
 }

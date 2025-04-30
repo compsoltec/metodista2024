@@ -1,2 +1,1 @@
-export './routes/routes.dart';
-export './widgets/widgets.dart';
+export './routes/app_pages.dart';

@@ -8,6 +8,7 @@ class Event {
   final String eventDate;
   final String createdAt;
   final String location;
+  final bool registration;
 
   Event({
     required this.id,
@@ -18,6 +19,7 @@ class Event {
     required this.eventDate,
     required this.createdAt,
     required this.location,
+    required this.registration,
   });
   Map<String, dynamic> toJson() {
     return {
@@ -28,7 +30,8 @@ class Event {
       'capacity': capacity,
       'eventDate': eventDate,
       'createdAt': createdAt,
-      'location': location
+      'location': location,
+      'registration': registration
     };
   }
 }

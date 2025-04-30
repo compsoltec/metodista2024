@@ -1,2 +1,11 @@
+export './bible/bible.dart';
 export './birthday/birthday.dart';
+export './cells/cells.dart';
+export './courses/cources.dart';
+export './devotionals/devotionals.dart';
+export './events/events.dart';
+export './home/home.dart';
+export './pastoral/pastoral.dart';
+export './preaching/preaching.dart';
 export './presentation/presentation.dart';
+export './youtube/youtube.dart';

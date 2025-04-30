@@ -14,6 +14,7 @@ class _AddBirthdayPageState extends State<AddBirthdayPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   DateTime? _selectedDate;
+  bool _isDialogOpen = false;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +29,7 @@ class _AddBirthdayPageState extends State<AddBirthdayPage> {
       body: BlocListener<BirthdayBloc, BirthdayState>(
         listener: (context, state) {
           if (state is BirthdayLoading) {
+            _isDialogOpen = true;
             showDialog(
               context: context,
               barrierDismissible: false,
@@ -36,12 +38,26 @@ class _AddBirthdayPageState extends State<AddBirthdayPage> {
               ),
             );
           } else if (state is BirthdaySuccess) {
-            Navigator.of(context).pop(); // Fecha o loading
-            Get.back(); // Volta para a tela anterior
+            if (_isDialogOpen) {
+              Navigator.of(context).pop();
+              _isDialogOpen = false;
+            }
             Get.snackbar('Sucesso', state.message,
                 backgroundColor: Colors.green, colorText: Colors.white);
+
+            // ⬇️ Aqui: Limpar os campos
+            _nameController.clear();
+            setState(() {
+              _selectedDate = null;
+            });
+
+            // ⬇️ E já buscar a lista atualizada de aniversariantes
+            context.read<BirthdayBloc>().add(FetchBirthdays());
           } else if (state is BirthdayError) {
-            Navigator.of(context).pop(); // Fecha o loading
+            if (_isDialogOpen) {
+              Navigator.of(context).pop();
+              _isDialogOpen = false;
+            }
             Get.snackbar('Erro', state.message,
                 backgroundColor: Colors.red, colorText: Colors.white);
           }

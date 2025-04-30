@@ -35,7 +35,7 @@ const createPreaching = async (req: PreachingRequest, res: Response) => {
     }
 
     // Create new preaching document in Firestore
-    const newPreachingRef = db.collection('devotionals').doc();
+    const newPreachingRef = db.collection('preaching').doc();
     const newPreaching: PreachingType = {
       id: newPreachingRef.id,
       title,
@@ -68,14 +68,14 @@ const createPreaching = async (req: PreachingRequest, res: Response) => {
 // Get All Preachings
 const getPreachings = async (_req: Request, res: Response) => {
   try {
-    console.log('📥 Fetching all devotionals...');
-    const devotionals: PreachingType[] = [];
-    const querySnapshot = await db.collection('devotionals')
+    console.log('📥 Fetching all preaching...');
+    const preaching: PreachingType[] = [];
+    const querySnapshot = await db.collection('preaching')
       .orderBy('date', 'desc')
       .get();
     
     querySnapshot.forEach((doc) => {
-      devotionals.push({
+      preaching.push({
         ...doc.data() as PreachingType,
         id: doc.id
       });
@@ -83,13 +83,13 @@ const getPreachings = async (_req: Request, res: Response) => {
     
     return res.status(200).json({
       status: 'Success',
-      data: devotionals
+      data: preaching
     });
   } catch (error) {
-    console.error('❌ Error fetching devotionals:', error);
+    console.error('❌ Error fetching preaching:', error);
     return res.status(500).json({
       status: 'Error',
-      message: error?.toString() || 'Failed to fetch devotionals'
+      message: error?.toString() || 'Failed to fetch preaching'
     });
   }
 };
@@ -100,7 +100,7 @@ const getPreachingById = async (req: PreachingRequest, res: Response) => {
   
   try {
     console.log(`📥 Fetching preaching with ID: ${devotionalId}`);
-    const devotionalDoc = await db.collection('devotionals').doc(devotionalId).get();
+    const devotionalDoc = await db.collection('preaching').doc(devotionalId).get();
     
     if (!devotionalDoc.exists) {
       return res.status(404).json({
@@ -134,7 +134,7 @@ const updatePreaching = async (req: PreachingRequest, res: Response) => {
   
   try {
     console.log(`📝 Updating preaching with ID: ${devotionalId}`);
-    const devotionalRef = db.collection('devotionals').doc(devotionalId);
+    const devotionalRef = db.collection('preaching').doc(devotionalId);
     const doc = await devotionalRef.get();
     
     if (!doc.exists) {
@@ -184,7 +184,7 @@ const deletePreaching = async (req: PreachingRequest, res: Response) => {
   
   try {
     console.log(`🗑️ Deleting preaching with ID: ${devotionalId}`);
-    const devotionalRef = db.collection('devotionals').doc(devotionalId);
+    const devotionalRef = db.collection('preaching').doc(devotionalId);
     const doc = await devotionalRef.get();
     
     if (!doc.exists) {

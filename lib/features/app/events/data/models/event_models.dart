@@ -11,6 +11,7 @@ class EventModel extends Event {
     required super.eventDate,
     required super.createdAt,
     required super.location,
+    required super.registration,
   });
 
   // From JSON - Converts the Map data from API to EventModel instance
@@ -23,6 +24,7 @@ class EventModel extends Event {
         capacity: json['capacity'] ?? 0,
         eventDate: json['eventDate'] ?? '',
         createdAt: json['createdAt'] ?? '',
+        registration: json['registration'] ?? '',
         location: json['location'] ?? '');
   }
 }

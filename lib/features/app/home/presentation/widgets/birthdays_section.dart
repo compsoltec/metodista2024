@@ -28,7 +28,6 @@ class BirthdaysSection extends StatelessWidget {
                 return const Center(child: CircularProgressIndicator());
               } else if (state is BirthdayLoadedToday) {
                 final birthdays = state.birthdays;
-
                 return Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
@@ -60,11 +59,14 @@ class BirthdaysSection extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(width: 12),
-                            const Text(
-                              'Nenhum aniversariante do dia',
-                              style: TextStyle(
-                                color: AppColors.textSecondary,
-                                fontSize: 16,
+                            Expanded(
+                              child: const Text(
+                                'Nenhum aniversariante do dia',
+                                style: TextStyle(
+                                  overflow: TextOverflow.ellipsis,
+                                  color: AppColors.textSecondary,
+                                  fontSize: 16,
+                                ),
                               ),
                             ),
                           ],
@@ -99,6 +101,7 @@ class BirthdaysSection extends StatelessWidget {
                                           birthday.name,
                                           style: const TextStyle(
                                             fontSize: 16,
+                                            overflow: TextOverflow.ellipsis,
                                             fontWeight: FontWeight.bold,
                                             color: AppColors.textPrimary,
                                           ),

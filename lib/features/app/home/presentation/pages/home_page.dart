@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:metodista/features/app/bible/presentation/bible_book.dart';
+import 'package:metodista/features/app/birthday/presentation/pages/all_birthdays.dart';
+import 'package:metodista/features/app/events/presentation/pages/all_events.dart';
+import 'package:metodista/features/app/notices/notices.dart';
 
 import '../../../../../core/core.dart';
 import '../../../../features.dart';
@@ -19,8 +23,24 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      body: BlocProvider(
-        create: (_) => sl<DevotionalBloc>()..add(FetchDevotionals()),
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (_) => sl<DevotionalBloc>()..add(FetchDevotionals()),
+          ),
+          BlocProvider(
+            create: (_) => sl<PreachingBloc>()..add(FetchPreachings()),
+          ),
+          BlocProvider(
+            create: (_) => sl<CourcesBloc>()..add(FetchCources()),
+          ),
+          BlocProvider(
+            create: (_) => sl<CellsBloc>()..add(FetchCells()),
+          ),
+          BlocProvider(
+            create: (_) => sl<NoticesBloc>()..add(FetchNotices()),
+          ),
+        ],
         child: Stack(
           children: [
             Container(
@@ -71,40 +91,24 @@ class HomePage extends StatelessWidget {
                 slivers: [
                   const SliverToBoxAdapter(child: WelcomeHeader()),
 
-                  // Player do Devocional
                   SliverToBoxAdapter(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 16),
-                      child: BlocBuilder<DevotionalBloc, DevotionalState>(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: BlocBuilder<PreachingBloc, PreachingState>(
                         builder: (context, state) {
-                          if (state is DevotionalLoading) {
+                          if (state is PreachingLoading) {
                             return const Center(
                                 child: CircularProgressIndicator());
-                          } else if (state is DevotionalLoaded) {
-                            final devotionals = state.devotionals;
-                            final devotionalMaisRecente = devotionals.isNotEmpty
-                                ? devotionals.first
-                                : null;
-
-                            if (devotionalMaisRecente == null) {
+                          } else if (state is PreachingLoaded) {
+                            final preachings = state.preachings;
+                            if (preachings.isEmpty) {
                               return const SizedBox();
+                            } else {
+                              return PreachingPage(
+                                preachings: preachings,
+                              );
                             }
-
-                            return DevotionalPlayerWidget(
-                              devotional: devotionalMaisRecente,
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => DevotionalDetailPage(
-                                      devotional: devotionalMaisRecente,
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                          } else if (state is DevotionalError) {
+                          } else if (state is PreachingError) {
                             return Text(state.message);
                           }
                           return const SizedBox.shrink();
@@ -112,7 +116,6 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-
                   // Conteúdo Principal SEM o Transform.translate
                   SliverToBoxAdapter(
                     child: Container(
@@ -132,10 +135,34 @@ class HomePage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Padding(
-                            padding: EdgeInsets.all(24),
-                            child: MediaPlayerWidget(),
+                          BlocBuilder<NoticesBloc, NoticesState>(
+                            builder: (context, state) {
+                              if (state is NoticesLoading) {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              } else if (state is NoticessLoaded) {
+                                final notices = state.notices;
+                                if (notices.isEmpty) return const SizedBox();
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 24),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 20),
+                                    child: MediaPlayerWidget(notices: notices),
+                                  ),
+                                );
+                              } else if (state is NoticesError) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 24),
+                                  child: Text(state.message,
+                                      style: TextStyle(color: Colors.red)),
+                                );
+                              }
+                              return const SizedBox.shrink();
+                            },
                           ),
+                          const SizedBox(height: 32),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 24),
                             child: Column(
@@ -154,10 +181,110 @@ class HomePage extends StatelessWidget {
                               ],
                             ),
                           ),
+                          //const SizedBox(height: 32),
+                          // const Padding(
+                          //   padding: EdgeInsets.symmetric(horizontal: 24),
+                          //   child: EventsSection(),
+                          // ),
                           const SizedBox(height: 32),
-                          const Padding(
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 24, vertical: 0),
+                            child: Text(
+                              'Nossos Cursos',
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.textPrimary,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Padding(
                             padding: EdgeInsets.symmetric(horizontal: 24),
-                            child: EventsSection(),
+                            child: BlocBuilder<CourcesBloc, CourcesState>(
+                              builder: (context, state) {
+                                if (state is PreachingLoading) {
+                                  return const Center(
+                                      child: CircularProgressIndicator());
+                                } else if (state is CourcessLoaded) {
+                                  final cources = state.cources;
+                                  if (cources.isEmpty) {
+                                    return const SizedBox();
+                                  } else {
+                                    return SizedBox(
+                                      height: 210,
+                                      child: ListView.builder(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 5),
+                                          scrollDirection: Axis.horizontal,
+                                          shrinkWrap:
+                                              true, // <- Adicione isso também pra funcionar dentro do ScrollView
+
+                                          itemCount: cources.length,
+                                          itemBuilder: (context, index) {
+                                            return CourcesListScreen(
+                                              cources: cources[index],
+                                            );
+                                          }),
+                                    );
+                                  }
+                                } else if (state is CourcesError) {
+                                  return Text(state.message);
+                                }
+                                return const SizedBox.shrink();
+                              },
+                            ),
+                          ),
+                          const SizedBox(height: 24),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 24, vertical: 0),
+                            child: Text(
+                              'Nossas Células',
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.textPrimary,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 24),
+                            child: BlocBuilder<CellsBloc, CellsState>(
+                              builder: (context, state) {
+                                if (state is CellsLoading) {
+                                  return const Center(
+                                      child: CircularProgressIndicator());
+                                } else if (state is CellssLoaded) {
+                                  final cells = state.cells;
+                                  if (cells.isEmpty) {
+                                    return const SizedBox();
+                                  } else {
+                                    return SizedBox(
+                                      height: 210,
+                                      child: ListView.builder(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 5),
+                                          scrollDirection: Axis.horizontal,
+                                          shrinkWrap:
+                                              true, // <- Adicione isso também pra funcionar dentro do ScrollView
+
+                                          itemCount: cells.length,
+                                          itemBuilder: (context, index) {
+                                            return CellsListScreen(
+                                              cells: cells[index],
+                                            );
+                                          }),
+                                    );
+                                  }
+                                } else if (state is CellsError) {
+                                  return Text(state.message);
+                                }
+                                return const SizedBox.shrink();
+                              },
+                            ),
                           ),
                           const SizedBox(height: 32),
                           const Padding(
@@ -165,11 +292,13 @@ class HomePage extends StatelessWidget {
                             child: BirthdaysSection(),
                           ),
                           const SizedBox(height: 32),
-                          const Padding(
+                          Padding(
                             padding: EdgeInsets.symmetric(horizontal: 24),
                             child: PastoralsSection(),
                           ),
-                          const SizedBox(height: 40),
+                          SizedBox(
+                            height: 130,
+                          )
                         ],
                       ),
                     ),
@@ -177,6 +306,47 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                child: BlocBuilder<DevotionalBloc, DevotionalState>(
+                  builder: (context, state) {
+                    if (state is DevotionalLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (state is DevotionalLoaded) {
+                      final devotionals = state.devotionals;
+                      final devotionalMaisRecente =
+                          devotionals.isNotEmpty ? devotionals.first : null;
+
+                      if (devotionalMaisRecente == null) {
+                        return const SizedBox();
+                      }
+
+                      return DevotionalPlayerWidget(
+                        devotional: devotionalMaisRecente,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DevotionalDetailPage(
+                                devotional: devotionalMaisRecente,
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    } else if (state is DevotionalError) {
+                      return Text(state.message);
+                    }
+                    return const SizedBox.shrink();
+                  },
+                ),
+              ),
+            )
           ],
         ),
       ),
@@ -261,7 +431,7 @@ class HomePage extends StatelessWidget {
       {'icon': Icons.book, 'label': 'Bíblia', 'color': AppColors.rust},
       {
         'icon': Icons.music_note,
-        'label': 'Hymns',
+        'label': 'Playlists',
         'color': AppColors.darkPurple
       },
       {'icon': Icons.group, 'label': 'Acessos', 'color': AppColors.copper},
@@ -291,12 +461,38 @@ class HomePage extends StatelessWidget {
                   MaterialPageRoute(builder: (_) => const AdminDashboardPage()),
                 );
                 break;
-              default:
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                      content: Text(
-                          'Funcionalidade de ${action['label']} em desenvolvimento!')),
+            }
+            switch (action['label']) {
+              case 'Aniversario':
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const AllBirthdaysScreen()),
                 );
+                break;
+            }
+            switch (action['label']) {
+              case 'Playlists':
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const AllAudioScreen()),
+                );
+                break;
+            }
+            switch (action['label']) {
+              case 'Bíblia':
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => BibleBooksScreen()),
+                );
+                break;
+            }
+            switch (action['label']) {
+              case 'Eventos':
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => AllEventsPage()),
+                );
+                break;
             }
           },
         );

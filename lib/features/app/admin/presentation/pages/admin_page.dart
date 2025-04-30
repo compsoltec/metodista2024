@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:metodista/features/app/birthday/birthday.dart';
-import 'package:metodista/features/app/devotionals/presentation/pages/add_devotional_page.dart';
+import 'package:metodista/features/app/preaching/presentation/pages/addpreachings_page.dart';
 
 import '../../../../../core/core.dart';
-import '../../../events/presentation/pages/create_event.dart';
+import '../../../app.dart';
+import '../../../notices/notices.dart';
 
 class AdminDashboardPage extends StatelessWidget {
   const AdminDashboardPage({super.key});
@@ -55,42 +55,119 @@ class AdminDashboardPage extends StatelessWidget {
   }
 
   Widget _buildAdminMenu(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return Column(
       children: [
-        _buildMenuCard(
-          icon: Icons.event,
-          label: 'Criar\nEvento',
-          color: AppColors.sage,
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const CreateEventScreen()),
-            );
-          },
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _buildMenuCard(
+              icon: Icons.event,
+              label: 'Criar\nEvento',
+              color: AppColors.sage,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const CreateEventScreen()),
+                );
+              },
+            ),
+            _buildMenuCard(
+              icon: Icons.library_music,
+              label: 'Criar\nDevocional',
+              color: AppColors.copper,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const AddDevotionalPage()),
+                );
+              },
+            ),
+            _buildMenuCard(
+              icon: Icons.cake,
+              label: 'Aniversariantes',
+              color: AppColors.gold,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const BirthdayPage()),
+                );
+              },
+            ),
+          ],
         ),
-        _buildMenuCard(
-          icon: Icons.library_music,
-          label: 'Criar\nDevocional',
-          color: AppColors.copper,
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const AddDevotionalPage()),
-            );
-          },
+        Divider(
+          color: Colors.transparent,
         ),
-        _buildMenuCard(
-          icon: Icons.cake,
-          label: 'Aniversariantes',
-          color: AppColors.gold,
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const BirthdayPage()),
-            );
-          },
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _buildMenuCard(
+              icon: Icons.menu_book,
+              label: 'Criar\nPastoral',
+              color: AppColors.gold,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const AddPastoralPage()),
+                );
+              },
+            ),
+            _buildMenuCard(
+              icon: Icons.library_music,
+              label: 'Adicionar\nPregação',
+              color: AppColors.sage,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const AddPreachingPage()),
+                );
+              },
+            ),
+            _buildMenuCard(
+              icon: Icons.book,
+              label: 'Adicionar\nCurso',
+              color: AppColors.copper,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => const CreateCourcesScreen()),
+                );
+              },
+            ),
+          ],
         ),
+        Divider(
+          color: Colors.transparent,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _buildMenuCard(
+              icon: Icons.people,
+              label: 'Adicionar\nCélula',
+              color: AppColors.copper,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const CreateCellsScreen()),
+                );
+              },
+            ),
+            _buildMenuCard(
+              icon: Icons.video_collection,
+              label: 'Adicionar\nVídeos',
+              color: AppColors.gold,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => const CreateNoticesScreen()),
+                );
+              },
+            ),
+          ],
+        )
       ],
     );
   }

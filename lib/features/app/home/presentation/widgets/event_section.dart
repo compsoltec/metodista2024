@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../core/core.dart';
-import '../../../events/events.dart';
+import '../../../app.dart';
 
 class EventsSection extends StatelessWidget {
   const EventsSection({super.key});
@@ -12,7 +12,7 @@ class EventsSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Próximos Eventos',
+          'Nossas Atividades',
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
@@ -64,7 +64,19 @@ class EventsSection extends StatelessWidget {
   Widget _buildEventCard(BuildContext context, Event event) {
     return GestureDetector(
       onTap: () {
-        // Navegação futura para detalhes do evento
+        Get.toNamed(
+          Routes.eventDetails,
+          arguments: Event(
+              id: event.id,
+              title: event.title,
+              description: event.description,
+              imageUrl: event.imageUrl,
+              capacity: event.capacity,
+              eventDate: event.eventDate,
+              createdAt: event.createdAt,
+              location: event.location,
+              registration: event.registration),
+        );
       },
       child: Container(
         width: 260,
